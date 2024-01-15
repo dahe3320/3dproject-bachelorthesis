@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Stars } from "@react-three/drei";
 import './App.css'
 import { useControls } from "leva";
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-
+import { TextureLoader } from 'three/src/loaders/TextureLoader';
 
 function Studio() {
   const { boxColour, depth } = useControls({
@@ -25,49 +25,40 @@ function Studio() {
   )
 }
 
-function Car () {
-  const loader = new GLTFLoader();
+function Car() {
+  const [model, setModel] = useState(null);
 
+  useEffect(() => {
+    const loader = new GLTFLoader().setPath('notebook/');
+    const textureLoader = new TextureLoader();
+    const texture = textureLoader.load('src/assets/mumin.png'); // Replace with the path to your texture
+    loader.load(
+      'scene.gltf',
+      (gltf) => {
+        const loadedModel = gltf.scene;
+        //console.log(loadedModel);
+        
+        // Find the object by name
+        const notebookCover = loadedModel.getObjectByName('Spiral_Notebook_Spiral_Notebook_Cover_0');
+        if (notebookCover) {
+          notebookCover.material.map = texture;
+          console.log(notebookCover.material.map);
+          notebookCover.material.map.repeat.set( 2, 2 );
+          notebookCover.material.map.flipY = false;
+          notebookCover.material.needsUpdate = true;
+        }
+        loadedModel.rotation.x = 4;
+        setModel(loadedModel);
+      },
+      undefined,
+      function (error) {
+        console.error(error);
+      }
+    );
+  }, []); // Empty dependency array ensures this effect runs once on mount
 
-  loader.load(
-    '../assets/car.gltf',
-
-    function ( gltf ) {
-
-      scene.add( gltf.scene );
-
-      gltf.animations; // Array<THREE.AnimationClip>
-      gltf.scene; // THREE.Group
-      gltf.scenes; // Array<THREE.Group>
-      gltf.cameras; // Array<THREE.Camera>
-      gltf.asset; // Object
-  
-    },
-    function ( xhr ) {
-      console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-	},
-	// called when loading has errors
-	function ( error ) {
-
-		console.log( 'An error happened' );
-
-	}
-    
-  )
+  return model ? <primitive object={model} /> : null;
 }
-
-/*
-function MyComponent() {
-  const { name, aNumber } = useControls({ name: 'World', aNumber: 0 })
-
-  return (
-    <div>
-      Hey {name}, hello! {aNumber}
-    </div>
-  )
-} */
-
 
 function App() {
   const [count, setCount] = useState(0)
@@ -75,9 +66,9 @@ function App() {
       <Canvas>
       <OrbitControls />
       <Stars />
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={2} />
       <pointLight position={[10, 10, 10]} />
-      <Studio />
+      {/* <Studio /> */}
       <Car />
       </Canvas>
   )
