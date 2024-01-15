@@ -1,1 +1,0 @@
-# 3dproject-bachelorthesis
