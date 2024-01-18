@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Stars } from "@react-three/drei";
 import './App.css'
 import { useControls } from "leva";
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
+
 
 function Studio() {
 
@@ -46,8 +47,8 @@ function Module() {
 
         // Find the object by name
         const notebookCover = loadedModel.getObjectByName('Spiral_Notebook_Spiral_Notebook_Cover_0');
+        
         // notebookCover.traverse(node => {
-
         //   if(node.isMesh) {  
         //     node.material.color.set(0xffffff);
         //     node.material.map = texture;
