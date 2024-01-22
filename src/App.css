@@ -1,8 +1,83 @@
-* {
-  width: 100%;
-  height: 100%;
+.App {
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
-  background: #261656;
+  background: #0d0427;
   overflow: hidden;
+  touch-action: none;
+}
+
+.interface {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  background-color: #ffffff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.interface input,
+.interface select,
+.interface button {
+  margin-bottom: 10px;
+}
+
+.controls-container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.config-button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.config-button:hover {
+  background-color: #2980b9;
+}
+
+/* Customize the appearance of the file upload input */
+input[type="file"] {
+  display: none;
+}
+
+.interface label[for="file-upload"] {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.interface label[for="file-upload"]:hover {
+  background-color: #2980b9;
+}
+
+/* Customize the appearance of the color picker input */
+input[type="color"] {
+  appearance: none;
+  border: none;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.interface input[type="color"]:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.interface input[type="color"]::-webkit-color-swatch {
+  border: none;
+}
+
+.interface input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
 }

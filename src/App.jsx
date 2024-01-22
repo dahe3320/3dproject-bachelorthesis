@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import './App.css'
-// import { useControls } from "leva";
+import Enviroment from './components/enviroment'
+import Interface from './components/Interface'
+import { CustomizationProvider } from './editor/Customize'
+
+
 
 
 
@@ -33,13 +37,17 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-  return (  
-      <Canvas dpr={[1,2]}>
-        <color attach="background" args={["#404040"]} />
-        <fog attach="fog" args={["#213547", 10, 20]} />
-      <ambientLight intensity={2} />
-      <pointLight position={[10, 10, 10]} />
+  return (
+    <CustomizationProvider>
+    <div className="App">
+      <Canvas dpr={[2,4]}>
+        <color attach="background" args={["#130b2a"]} />
+        <fog attach="fog" args={["#130b2a", 10, 20]} /> 
+      <Enviroment />
       </Canvas>
+      <Interface />
+      </div>
+      </CustomizationProvider>  
   )
 }
 
