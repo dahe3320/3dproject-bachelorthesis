@@ -36,7 +36,6 @@ import { CustomizationProvider } from './editor/Customize'
 
 
 function App() {
-  const [count, setCount] = useState(0)
   return (
     <CustomizationProvider>
     <div className="App">

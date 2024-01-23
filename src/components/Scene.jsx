@@ -13,28 +13,34 @@ import * as THREE from 'three';
 import { useCustomization } from '../editor/Customize';
 
 function Scene(props) {
-  const { coverTexture, spiralColor } = useCustomization();
+  const { coverTexture, spiralColor, setCoverTexture } = useCustomization();
   const { nodes, materials } = useGLTF('./models/scene.gltf');
 
-  //const coverTexture = useTexture('./src/assets/moomin-9groke.jpg')
+    // Use a default texture initially
+    const defaultTexture = useTexture('./src/assets/moomin-9groke.jpg');
+
+    // If coverTexture is not set, use the default texture
+    const currentTexture = coverTexture || defaultTexture;
+
   //coverTexture.repeat.set(2,2);
   //coverTexture.wrapS = coverTexture.wrapT = THREE.RepeatWrapping;
 
   return (
     <group {...props} dispose={null}>
       <group scale={0.1}>
-        <group rotation={[-Math.PI / 2, 0, 0]} scale={100}>
+        <group rotation={[-Math.PI / 2, 0, 0]} scale={50}>
           <mesh geometry={nodes.Spiral_Notebook_Spiral_Notebook_Cover_0.geometry}>
             <meshBasicMaterial transparent opacity={0}/>
             <Decal
-            position={[0, 0, 0]}
+            debug
+            position={[0, -0.03, 0]}
             rotation={[1.57, 0, 0]}
             scale={[0.25, 0.31, 0.1]}
             >
               <meshBasicMaterial 
-                map={coverTexture}
+                map={currentTexture}
                 polygonOffset
-                polygonOffsetFactor={-1} /> 
+                polygonOffsetFactor={1} /> 
             </Decal>
           </mesh>
           <mesh geometry={nodes.Spiral_Notebook_Spiral_Notebook_Backboard_0.geometry} material={materials.Spiral_Notebook_Backboard} />
@@ -67,4 +73,4 @@ function Scene(props) {
 
 export default Scene;
 
-useGLTF.preload('./models/scene.gltf')
+useGLTF.preload('./models/scene.gltf');

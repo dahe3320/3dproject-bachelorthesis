@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 
+//const defaultTexture = './src/assets/moomin-9groke.jpg';
+
 const CustomizationContext = createContext({});
 
 export const CustomizationProvider = (props) => {
