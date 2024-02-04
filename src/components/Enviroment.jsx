@@ -1,6 +1,5 @@
 import {
     MeshReflectorMaterial,
-    PresentationControls,
     Stage,
     ContactShadows,
     OrbitControls,
@@ -8,6 +7,7 @@ import {
 // import Diary from "./Diary";
 // import Notebook from "./Notebook";
 import Scene from "./Scene";
+import Background from "./Background";
 
 
 const Enviroment = () => {
@@ -20,10 +20,14 @@ const Enviroment = () => {
             rotation={[Math.PI / 8, Math.PI / 4, 0]}
         > */}
         <OrbitControls />
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} />
+        <directionalLight castShadow position={[0, 10, 0]} />
         <Stage>
             <Scene />
+            <Background />
         </Stage> 
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position-y={-2}>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position-y={-4}>
           <planeGeometry args={[170, 170]} />
           <MeshReflectorMaterial
             blur={[300, 100]}

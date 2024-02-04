@@ -8,12 +8,12 @@ Title: Spiral Notebook
 */
 
 import React, { useRef } from 'react'
-import { Decal, useGLTF, useTexture } from '@react-three/drei'
+import { Decal, useGLTF, useTexture, Text } from '@react-three/drei'
 import * as THREE from 'three';
 import { useCustomization } from '../editor/Customize';
 
 function Scene(props) {
-  const { coverTexture, spiralColor, setCoverTexture } = useCustomization();
+  const { coverTexture, spiralColor, setCoverTexture, textValue, textColor } = useCustomization();
   const { nodes, materials } = useGLTF('./models/scene.gltf');
 
     // Use a default texture initially
@@ -27,16 +27,23 @@ function Scene(props) {
 
   return (
     <group {...props} dispose={null}>
-      <group scale={0.1}>
-        <group rotation={[-Math.PI / 2, 0, 0]} scale={50}>
+      <group scale={0.5}>
+        <group rotation={[-Math.PI / 2, 0, 0]} scale={25}>
           <mesh geometry={nodes.Spiral_Notebook_Spiral_Notebook_Cover_0.geometry}>
             <meshBasicMaterial transparent opacity={0}/>
             <Decal
-            debug
             position={[0, -0.03, 0]}
             rotation={[1.57, 0, 0]}
             scale={[0.25, 0.31, 0.1]}
             >
+            <Text 
+            position={[0, -0.01, 0]} // adjust these values
+            rotation={[1.57, 0, 0]} // adjust these values
+            scale={[0.01, 0.01, 0.05]} // adjust these values
+            >
+              {textValue}
+              <meshBasicMaterial color={new THREE.Color(textColor)} />
+            </Text>  
               <meshBasicMaterial 
                 map={currentTexture}
                 polygonOffset

@@ -7,6 +7,8 @@ const CustomizationContext = createContext({});
 export const CustomizationProvider = (props) => {
   const [coverTexture, setCoverTexture] = useState(null);
   const [spiralColor, setSpiralColor] = useState('#ffffff'); // Default color is white
+  const [textValue, setTextValue] = useState(''); // Default text is empty string 
+  const [textColor, setTextColor] = useState('#000000'); // Default color is black
 
   return (
     <CustomizationContext.Provider
@@ -15,6 +17,10 @@ export const CustomizationProvider = (props) => {
         setCoverTexture,
         spiralColor,
         setSpiralColor,
+        textValue, 
+        setTextValue,
+        textColor,
+        setTextColor
       }}
     >
       {props.children}

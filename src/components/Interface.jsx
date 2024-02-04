@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useCustomization } from '../editor/Customize';
 import * as THREE from 'three';
+import html2canvas from 'html2canvas';
 
 const Interface = () => {
-    const { setCoverTexture, setSpiralColor } = useCustomization();
+    const ref = useRef();
+    const { setCoverTexture, setSpiralColor, setTextValue, setTextColor } = useCustomization();
     
     const handleFileUpload = async (e) => {
       const file = e.target.files[0];
@@ -34,13 +36,32 @@ const Interface = () => {
     }
   
     const handleTextChange = (e) => {
-      const textValue = e.target.value;
-      console.log('Text entered:', textValue);
-      // You can perform additional actions with the entered text here
+      if (setTextValue) {
+        setTextValue(e.target.value);
+      }
     };
+
+    const handleTextColor = (e) => {
+      if (setTextColor) {
+        setTextColor(e.target.value);
+      }
+    }
+
+    const handleScreenshot = useCallback(() => {
+      const capture = ref.current;
+      html2canvas(capture).then((canvas) => {
+        const dataUrl = canvas.toDataURL('image/png');
+        console.log('Screenshot data URL:', dataUrl);
+
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = 'screenshot.png';
+        link.click();
+      });
+    }, []);
   
     return (
-      <div className="interface">
+      <div ref={ref} className="interface">
         {/* Color picker for Spiral color */}
         <label>Choose Spiral color:</label>
         <input type="color" onChange={handleColorChange} />
@@ -62,9 +83,11 @@ const Interface = () => {
             placeholder="2024..."
             onChange={handleTextChange}
           />
+          <label>Choose Text color:</label>
+          <input type="color" onChange={handleTextColor} />
     
-          <button className="config-button" onClick={() => console.log('Button clicked')}>
-            Click me
+          <button className="config-button" onClick={handleScreenshot}>
+            Take Screenshot!
           </button>
         </div>
       </div>
