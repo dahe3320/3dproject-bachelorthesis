@@ -98,17 +98,21 @@ input[type="color"] {
   padding: 0;
 }
 
-.carousel-container {
+.carousel-block-1, .carousel-block-2 {
   width: 50%;
   margin: 0 auto;
   display: flex;
   justify-content: center;
 }
 
-.carousel {
+.background-container {
   padding: 15px;
   border-radius: 5px;
+}
 
+.ground-container {
+  padding: 15px;
+  border-radius: 5px;
 }
 
 .img-block {

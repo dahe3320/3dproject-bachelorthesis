@@ -38,15 +38,15 @@ import { CustomizationProvider } from './editor/Customize'
 function App() {
   return (
     <CustomizationProvider>
-    <div className="App">
-      <Canvas dpr={[2,4]}>
-        <color attach="background" args={["#130b2a"]} />
-        <fog attach="fog" args={["#130b2a", 10, 20]} /> 
-      <Enviroment />
-      </Canvas>
-      <Interface />
+      <div className="App">
+        <Canvas dpr={[2,4]} id='canvas-container' gl={{ preserveDrawingBuffer: true }}>
+          <color attach="background" args={["#130b2a"]} />
+          <fog attach="fog" args={["#130b2a", 10, 20]} /> 
+          <Enviroment />
+        </Canvas>
+        <Interface />
       </div>
-      </CustomizationProvider>  
+    </CustomizationProvider>  
   )
 }
 

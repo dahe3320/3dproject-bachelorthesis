@@ -5,11 +5,13 @@ import { useCustomization } from '../editor/Customize';
 import * as THREE from 'three';
 import html2canvas from 'html2canvas';
 
+
 const Interface = () => {
-    const [index, setIndex] = useState(0);
+    const [backgroundIndex, setBackgroundIndex] = useState(0);
+    const [groundIndex, setGroundIndex] = useState(0);
     const [propsIndex, setPropsIndex] = useState(0);
-    const ref = useRef();
-    const { setCoverTexture, setSpiralColor, setTextValue, setTextColor } = useCustomization();
+
+    const { setCoverTexture, setSpiralColor, setTextValue, setTextColor, backgroundImages, setBackgroundImage, groundTxts, setGroundTxt } = useCustomization();
     
     const handleFileUpload = async (e) => {
       const file = e.target.files[0];
@@ -57,25 +59,31 @@ const Interface = () => {
       }
     }
 
-    const handleBackground = (selectedIndex, e) => {
-      setIndex(selectedIndex);
+    const handleBackground = (selectedIndex) => {
+      setBackgroundIndex(selectedIndex);
+      console.log('selectedIndex', selectedIndex);
+      setBackgroundImage(backgroundImages[selectedIndex]);
+    }
+
+    const handleGround = (usedIndex) => {
+      setGroundIndex(usedIndex);
+      console.log('usedIndex', usedIndex);
+      setGroundTxt(groundTxts[usedIndex]);
     }
 
     const handleScreenshot = useCallback(() => {
-      const capture = ref.current;
+      const capture = document.getElementById('canvas-container');
       html2canvas(capture).then((canvas) => {
         const dataUrl = canvas.toDataURL('image/png');
-        console.log('Screenshot data URL:', dataUrl);
-
         const link = document.createElement('a');
-        link.href = dataUrl;
-        link.download = 'screenshot.png';
+        link.setAttribute('download', 'canvas.png');
+        link.setAttribute('href', dataUrl);
         link.click();
       });
     }, []);
   
     return (
-      <div ref={ref} className="interface">
+      <div className="interface">
         {/* Color picker for Spiral color */}
         <label>Choose Spiral color:</label>
         <input type="color" onChange={handleSpiralColor} />
@@ -108,38 +116,51 @@ const Interface = () => {
           </div>
           </div>
             <h4>Background</h4>
-          <div className='carousel-container'>
-          <Carousel className='carousel' activeIndex={index} onSelect={handleBackground}>
-            <Carousel.Item>
+          <div className='carousel-block-1'>
+          <Carousel interval={null} className='background-container' activeIndex={backgroundIndex} onSelect={handleBackground}>
+          {backgroundImages.map((image, idx) => (
+            <Carousel.Item key={idx}>
               <img
                 className="img-block"
-                src="https://images.unsplash.com/photo-1682687980918-3c2149a8f110?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="First slide"
+                src={image.src}
+                alt={image.alt}
               />
             </Carousel.Item>
-            <Carousel.Item>
+          ))}
+          </Carousel>
+          </div>
+          <div className='carousel-block-2'>
+          <Carousel interval={null} className='ground-container' activeIndex={groundIndex} onSelect={handleGround}>
+          {groundTxts.map((txt, ix) => (
+            <Carousel.Item key={ix}>
               <img
                 className="img-block"
-                src="https://images.unsplash.com/photo-1707079918070-7962c5084643?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="Second slide"
+                src={txt.src}
+                alt={txt.alt}
               />
             </Carousel.Item>
-            <Carousel.Item>
-              <img
-                className="img-block"
-                src="https://images.unsplash.com/photo-1683009427470-a36fee396389?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="Third slide"
-              />
-            </Carousel.Item>
+          ))}
           </Carousel>
           </div>
           <ListGroup>
-            <ListGroup.Item onClick={() => setPropsIndex(0)} active={propsIndex === 0}>First slide</ListGroup.Item>
-            <ListGroup.Item onClick={() => setPropsIndex(1)} active={propsIndex === 1}>Second slide</ListGroup.Item>
-            <ListGroup.Item onClick={() => setPropsIndex(2)} active={propsIndex === 2}>Third slide</ListGroup.Item>
-            <ListGroup.Item onClick={() => setPropsIndex(3)} active={propsIndex === 3}>Fourth slide</ListGroup.Item>
-            <ListGroup.Item onClick={() => setPropsIndex(4)} active={propsIndex === 4}>Fifth slide</ListGroup.Item>
+            <ListGroup.Item onClick={() => setPropsIndex(0)} active={propsIndex === 0}>Klistermärken</ListGroup.Item>
+            <ListGroup.Item onClick={() => setPropsIndex(1)} active={propsIndex === 1}>Blomma</ListGroup.Item>
+            <ListGroup.Item onClick={() => setPropsIndex(2)} active={propsIndex === 2}>Pennskrin</ListGroup.Item>
+            <ListGroup.Item onClick={() => setPropsIndex(3)} active={propsIndex === 3}>Ljus</ListGroup.Item>
+            <ListGroup.Item onClick={() => setPropsIndex(4)} active={propsIndex === 4}>Pennor/pennhållare</ListGroup.Item>
           </ListGroup>
+          {/* <List>
+        {[0, 1, 2, 3, 4].map((propsIndex) => (
+          <ListItem
+            key={propsIndex}
+            button
+            onClick={() => setIndex(propsIndex)}
+            sx={{ backgroundColor: propsIndex === index ? '#f0f0f0' : 'inherit' }}
+          >
+            {`Slide ${propsIndex + 1}`}
+          </ListItem>
+        ))}
+      </List> */}
       </div>
     );
   };

@@ -1,6 +1,34 @@
 import { createContext, useContext, useState } from 'react';
 
-//const defaultTexture = './src/assets/moomin-9groke.jpg';
+const backgroundImages = [
+  {
+    src: './src/assets/Occult-dark_org.jpg',
+    alt: 'First slide'
+  },
+  {
+    src: './src/assets/2024-y2k.jpg',
+    alt: 'Second slide'
+  },
+  {
+    src: './src/assets/office_plane.jpg',
+    alt: 'Third slide'
+  }
+];
+
+const groundTxts = [
+  {
+    src: './src/assets/office_plane.jpg',
+    alt: 'First ground'
+  },
+  {
+    src: './src/assets/2024-y2k.jpg',
+    alt: 'Second ground'
+  },
+  {
+    src: './src/assets/Occult-dark_org.jpg',
+    alt: 'Third ground'
+  }
+];
 
 const CustomizationContext = createContext({});
 
@@ -9,6 +37,8 @@ export const CustomizationProvider = (props) => {
   const [spiralColor, setSpiralColor] = useState('#ffffff'); // Default color is white
   const [textValue, setTextValue] = useState(''); // Default text is empty string 
   const [textColor, setTextColor] = useState('#000000'); // Default color is black
+  const [backgroundImage, setBackgroundImage] = useState(backgroundImages[0]);
+  const [groundTxt, setGroundTxt] = useState(groundTxts[0]);
 
   return (
     <CustomizationContext.Provider
@@ -20,7 +50,13 @@ export const CustomizationProvider = (props) => {
         textValue, 
         setTextValue,
         textColor,
-        setTextColor
+        setTextColor,
+        backgroundImages,
+        backgroundImage,
+        setBackgroundImage,
+        groundTxts,
+        groundTxt,
+        setGroundTxt
       }}
     >
       {props.children}

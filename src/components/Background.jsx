@@ -1,8 +1,11 @@
 import React from 'react';
 import { Plane, useTexture } from '@react-three/drei';
+import { useCustomization } from '../editor/Customize';
 
 const Background = () => {
-    const texture = useTexture('./src/assets/office_plane.jpg');
+    const { backgroundImage } = useCustomization();
+    
+    const texture = useTexture(backgroundImage.src);
 
     return (
         <mesh>
