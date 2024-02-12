@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
+import * as THREE from 'three'
 import './App.css'
-import Enviroment from './components/enviroment'
+import Enviroment from './components/Enviroment'
 import Interface from './components/Interface'
 import { CustomizationProvider } from './editor/Customize'
+import { Raytracer } from "@react-three/lgl";
+import { Environment } from '@react-three/drei'
 
 
 
@@ -39,12 +42,14 @@ function App() {
   return (
     <CustomizationProvider>
       <div className="App">
+      <Suspense fallback={null}>
         <Canvas dpr={[2,4]} id='canvas-container' gl={{ preserveDrawingBuffer: true }}>
-          <color attach="background" args={["#130b2a"]} />
-          <fog attach="fog" args={["#130b2a", 10, 20]} /> 
-          <Enviroment />
+        <color args={[0, 0, 0]} attach="background" />
+          {/* <fog attach="fog" args={["#130b2a", 10, 20]} />   */}
+        <Enviroment /> 
         </Canvas>
         <Interface />
+        </Suspense>
       </div>
     </CustomizationProvider>  
   )

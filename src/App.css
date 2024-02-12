@@ -3,7 +3,7 @@
   height: 100vh;
   margin: 0;
   padding: 0;
-  background: #0d0427;
+  /* background: #0d0427; */
   overflow: hidden;
   touch-action: none;
 }

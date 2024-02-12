@@ -96,7 +96,7 @@ const Interface = () => {
           <input
             type="file"
             id="file-upload"
-            accept=".jpg, .jpeg, .png" // Adjust accepted file types as needed
+            accept=".jpg, .jpeg, .png"
             onChange={handleFileUpload}
           />
           <Button onClick={() => document.getElementById('file-upload').click()}>Choose Front Cover</Button>

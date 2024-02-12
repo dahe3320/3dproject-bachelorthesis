@@ -27,7 +27,7 @@ function Scene(props) {
 
   return (
     <group {...props} dispose={null}>
-      <group scale={0.5}>
+      <group scale={0.5} position-z={-4}>
         <group rotation={[-Math.PI / 2, 0, 0]} scale={25}>
           <mesh geometry={nodes.Spiral_Notebook_Spiral_Notebook_Cover_0.geometry}>
             <meshBasicMaterial transparent opacity={0}/>

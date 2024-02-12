@@ -1,6 +1,7 @@
 import React from 'react';
-import { Plane, useTexture } from '@react-three/drei';
+import { MeshReflectorMaterial, useTexture } from '@react-three/drei';
 import { useCustomization } from '../editor/Customize';
+import * as THREE from 'three';
 
 const Background = () => {
     const { backgroundImage } = useCustomization();
@@ -8,10 +9,9 @@ const Background = () => {
     const texture = useTexture(backgroundImage.src);
 
     return (
-        <mesh>
-            <Plane args={[20, 10]} position={[0, 2, -1]}>
-            <meshBasicMaterial attach="material" map={texture} />
-            </Plane>
+        <mesh position={[0, 4, -5]} rotateX={5}>
+            <planeGeometry args={[80, 40]} />
+            <MeshReflectorMaterial attach='material' map={texture} side={THREE.DoubleSide} />
         </mesh>
     );
 };
