@@ -13,7 +13,7 @@ const Ground = () => {
         <mesh position={[0 , -4, -5]} rotation={[-Math.PI / 2, 0, 0]}>
             <planeGeometry args={[40, 40]} />
             <MeshReflectorMaterial
-            attach="material"
+            attach="material" 
             map={texture}
             side={THREE.DoubleSide}
             dithering={true}

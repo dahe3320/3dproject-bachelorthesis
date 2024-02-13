@@ -34,7 +34,7 @@ const Enviroment = () => {
         intensity={1.5}
         angle={0.6}
         penumbra={0.5}
-        position={[10, 15, 2]}
+        position={[0, 25, 20]}
         castShadow
         shadow-bias={-0.0001}
       />
