@@ -31,13 +31,13 @@ const groundTxts = [
 ];
 
 const checkBoxes = [
-  { label: 'Klistermärken', name: 'prop1' },
-  { label: 'Blomma', name: 'prop2' },
-  { label: 'Pennskrin', name: 'prop3' },
-  { label: 'Ljus', name: 'prop4' },
-  { label: 'Pennor/pennhållare', name: 'prop5' },
-  { label: 'Kaffe', name: 'prop6' },
-  { label: 'Gem', name: 'prop7' },
+  { label: 'Klistermärken', name: 'prop1', x: 0, z: 0 },
+  { label: 'Blomma', name: 'prop2', x: 0, z: 0 },
+  { label: 'Pennskrin', name: 'prop3', x: 0, z: 0 },
+  { label: 'Ljus', name: 'prop4', x: 0, z: 0},
+  { label: 'Pennor/pennhållare', name: 'prop5', x: 0, z: 0},
+  { label: 'Kaffe', name: 'prop6', x: 0, z: 0},
+  { label: 'Gem', name: 'prop7', x: 0, z: 0},
 ];
 
 const CustomizationContext = createContext({});
@@ -49,7 +49,6 @@ export const CustomizationProvider = (props) => {
   const [textColor, setTextColor] = useState('#000000'); // Default color is black
   const [backgroundImage, setBackgroundImage] = useState(backgroundImages[0]);
   const [groundTxt, setGroundTxt] = useState(groundTxts[0]);
-  const [selectedProp, setSelectedProps] = useState(checkBoxes[0]);
 
   return (
     <CustomizationContext.Provider
@@ -68,8 +67,6 @@ export const CustomizationProvider = (props) => {
         groundTxts,
         groundTxt,
         setGroundTxt,
-        selectedProp,
-        setSelectedProps,
         checkBoxes
       }}
     >

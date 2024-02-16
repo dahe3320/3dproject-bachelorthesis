@@ -1,7 +1,6 @@
 import React from 'react';
 import { MeshReflectorMaterial, useTexture } from '@react-three/drei';
 import { useCustomization } from '../editor/Customize';
-import * as THREE from 'three';
 
 const Ground = () => {
     const { groundTxt } = useCustomization();
@@ -15,7 +14,6 @@ const Ground = () => {
             <MeshReflectorMaterial
             attach="material" 
             map={texture}
-            side={THREE.DoubleSide}
             dithering={true}
             roughness={0.7}
             blur={[1000, 400]} 

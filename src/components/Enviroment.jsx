@@ -15,6 +15,7 @@ import Ground from "./Ground";
 import React, { Suspense, useRef } from "react";
 import { DirectionalLightHelper, PointLightHelper, SpotLightHelper } from "three";
 import { Raytracer } from "@react-three/lgl";
+import PropsModel from "./PropsModel";
 
 
 const Enviroment = () => {

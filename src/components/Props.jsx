@@ -1,14 +1,46 @@
-import React from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useCustomization } from "../editor/Customize";
 import { Form } from "react-bootstrap";
+import PropsModel from "./PropsModel";
 
 const Props = () => {
-  const { checkBoxes, selectedProp, setSelectedProps } = useCustomization();
+  const { checkBoxes } = useCustomization();
+  const [checkedState, setCheckedState] = useState({});
+  const [propStates, setPropStates] = useState({});
 
-  const handleCheckboxChange = (e) => {
-    const selectedProp = checkBoxes.find(prop => prop.name === e.target.value);
-    setSelectedProps(selectedProp);
-  }
+  const handleCheckboxChange = (checkbox) => {
+    setCheckedState((prevCheckedState) => ({
+      ...prevCheckedState,
+      [checkbox.name]: !prevCheckedState[checkbox.name],
+    }));
+
+    if (checkedState[checkbox.name]) {
+      // If checkbox was checked, reset prop state
+      setPropStates((prevPropStates) => ({
+        ...prevPropStates,
+        [checkbox.name]: {
+          x: 0,
+          z: 0,
+        },
+      }));
+    }
+  };
+
+  const handleXChange = (e, prop) => {
+    const newXValue = Number(e.target.value);
+    setPropStates((prevPropStates) => ({
+      ...prevPropStates,
+      [prop.name]: { ...prevPropStates[prop.name], x: newXValue },
+    }));
+  };
+
+  const handleZChange = (e, prop) => {
+    const newZValue = Number(e.target.value);
+    setPropStates((prevPropStates) => ({
+      ...prevPropStates,
+      [prop.name]: { ...prevPropStates[prop.name], z: newZValue },
+    }));
+  };
 
   return (
     <Form>
@@ -18,16 +50,34 @@ const Props = () => {
             <Form.Check
               label={checkbox.label}
               name={checkbox.name}
-              checked={selectedProp.name === checkbox.name}
+              checked={checkedState[checkbox.name] || false}
               onChange={() => handleCheckboxChange(checkbox)}
             />
-            {checkbox.name === selectedProp.name && (
-              <Form.Group controlId={`inline-checkbox--${index + 1}`} className="mb-3 d-flex align-items-center">
-                <Form.Label className="mx-2">X</Form.Label>
-                <Form.Control type="number" size='sm' style={{ width: '20%' }} />
-                <Form.Label className="mx-2">Z</Form.Label>
-                <Form.Control type="number" size='sm' style={{ width: '20%' }} />
+            {checkedState[checkbox.name] && (
+              <Form.Group
+                controlId={`inline-checkbox--${index + 1}`}
+                className="mb-3 d-flex align-items-center"
+              >
+                <Form.Label className="mx-2">X:</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={propStates[checkbox.name]?.x || 0}
+                  onChange={(e) => handleXChange(e, checkbox)}
+                  size="sm"
+                  style={{ width: "20%" }}
+                />
+                <Form.Label className="mx-2">Z:</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={propStates[checkbox.name]?.z || 0}
+                  onChange={(e) => handleZChange(e, checkbox)}
+                  size="sm"
+                  style={{ width: "20%" }}
+                />
               </Form.Group>
+            )}
+            {checkedState[checkbox.name] && (
+              <PropsModel key={index} x={propStates[checkbox.name]?.x} z={propStates[checkbox.name]?.z} />         
             )}
           </React.Fragment>
         ))}
