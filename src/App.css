@@ -47,6 +47,12 @@
   border: 1px solid #ddd;
 }
 
+.screenshot-container {
+  position: absolute;
+  bottom: 1%;
+  right: 5%;
+}
+
 .config-button {
   background-color: #3498db;
   color: #fff;

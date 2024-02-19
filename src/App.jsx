@@ -19,7 +19,6 @@ function App() {
         <color args={[0, 0, 0]} attach="background" />
           {/* <fog attach="fog" args={["#130b2a", 10, 20]} />   */}
         <Enviroment />
-        <Props />
         </Canvas>
         <Interface />
         </Suspense>

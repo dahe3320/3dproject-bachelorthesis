@@ -4,18 +4,33 @@ import { Form } from "react-bootstrap";
 import PropsModel from "./PropsModel";
 
 const Props = () => {
-  const { checkBoxes } = useCustomization();
+  const { checkBoxes, setModelsState } = useCustomization();
   const [checkedState, setCheckedState] = useState({});
   const [propStates, setPropStates] = useState({});
 
   const handleCheckboxChange = (checkbox) => {
-    setCheckedState((prevCheckedState) => ({
+    
+    setCheckedState((prevCheckedState) => {
+      const newCheckedState = {
       ...prevCheckedState,
       [checkbox.name]: !prevCheckedState[checkbox.name],
+    };
+
+    setModelsState((prevModelsState) => ({
+      ...prevModelsState,
+      [checkbox.name]: {
+        ...prevModelsState[checkbox.name],
+        visibility: newCheckedState[checkbox.name],
+      x: propStates[checkbox.name]?.x || 0,
+      z: propStates[checkbox.name]?.z || 0,
+      },
+
     }));
 
-    if (checkedState[checkbox.name]) {
-      // If checkbox was checked, reset prop state
+    return newCheckedState;
+  });
+
+    if (!checkedState[checkbox.name]) {
       setPropStates((prevPropStates) => ({
         ...prevPropStates,
         [checkbox.name]: {
@@ -26,11 +41,20 @@ const Props = () => {
     }
   };
 
+
   const handleXChange = (e, prop) => {
     const newXValue = Number(e.target.value);
     setPropStates((prevPropStates) => ({
       ...prevPropStates,
       [prop.name]: { ...prevPropStates[prop.name], x: newXValue },
+    }));
+
+    setModelsState((prevModelsState) => ({
+      ...prevModelsState,
+      [prop.name]: {
+        ...prevModelsState[prop.name],
+        x: newXValue,
+      },
     }));
   };
 
@@ -39,6 +63,14 @@ const Props = () => {
     setPropStates((prevPropStates) => ({
       ...prevPropStates,
       [prop.name]: { ...prevPropStates[prop.name], z: newZValue },
+    }));
+
+    setModelsState((prevModelsState) => ({
+      ...prevModelsState,
+      [prop.name]: {
+        ...prevModelsState[prop.name],
+        z: newZValue,
+      },
     }));
   };
 
@@ -77,7 +109,11 @@ const Props = () => {
               </Form.Group>
             )}
             {checkedState[checkbox.name] && (
-              <PropsModel key={index} x={propStates[checkbox.name]?.x} z={propStates[checkbox.name]?.z} />         
+              <PropsModel 
+              key={index} 
+              x={propStates[checkbox.name]?.x} 
+              z={propStates[checkbox.name]?.z}
+              />         
             )}
           </React.Fragment>
         ))}

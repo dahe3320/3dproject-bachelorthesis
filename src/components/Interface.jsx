@@ -4,8 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useCustomization } from '../editor/Customize';
 import * as THREE from 'three';
 import html2canvas from 'html2canvas';
-import { FormControlLabel, FormGroup } from '@mui/material';
-import { CheckBox } from '@mui/icons-material';
 import Props from './Props';
 
 
@@ -147,7 +145,20 @@ const Interface = () => {
         </Tab>
         <Tab eventKey="Props" title="PROPS">
           <Props />
-          {/* <Form>
+        </Tab>
+      </Tabs>
+      <div className='screenshot-container'>
+        <Button className="config-button" onClick={handleScreenshot}>
+          Take Screenshot!
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default Interface;
+
+{/* <Form>
             <div key={`inline-checkbox`} className="mb-3">
             <Form.Check label="Klistermärken" name='prop1' />
             <Form.Group controlId={'inline-checkbox--1'} className="mb-3 d-flex align-items-center">
@@ -201,16 +212,8 @@ const Interface = () => {
 
           </div>
           </Form> */}
-        </Tab>
-      </Tabs>
-      <div className='screenshot-container'>
-        <Button className="config-button" onClick={handleScreenshot}>
-          Take Screenshot!
-        </Button>
-      </div>
 
-
-
+          
       {/* <ListGroup>
             <ListGroup.Item onClick={() => setPropsIndex(0)} active={propsIndex === 0}>Klistermärken</ListGroup.Item>
             <ListGroup.Item onClick={() => setPropsIndex(1)} active={propsIndex === 1}>Blomma</ListGroup.Item>
@@ -218,8 +221,3 @@ const Interface = () => {
             <ListGroup.Item onClick={() => setPropsIndex(3)} active={propsIndex === 3}>Ljus</ListGroup.Item>
             <ListGroup.Item onClick={() => setPropsIndex(4)} active={propsIndex === 4}>Pennor/pennhållare</ListGroup.Item>
           </ListGroup> */}
-    </div>
-  );
-};
-
-export default Interface;

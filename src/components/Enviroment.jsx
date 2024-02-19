@@ -15,7 +15,8 @@ import Ground from "./Ground";
 import React, { Suspense, useRef } from "react";
 import { DirectionalLightHelper, PointLightHelper, SpotLightHelper } from "three";
 import { Raytracer } from "@react-three/lgl";
-import PropsModel from "./PropsModel";
+import  PropsModel from "./PropsModel";
+import { useCustomization } from "../editor/Customize";
 
 
 const Enviroment = () => {
@@ -23,7 +24,7 @@ const Enviroment = () => {
       useHelper(dirLght, DirectionalLightHelper,'red');
   const lghgh = useRef();
       useHelper(lghgh, PointLightHelper,'red');
-  
+  const { modelsState } = useCustomization();
 
 
     return (
@@ -52,6 +53,13 @@ const Enviroment = () => {
         <Scene />
         <Background />
         <Ground />
+        {Object.entries(modelsState).map(([modelName, modelState]) => {
+          if (modelState.visibility) {
+            console.log(modelName, modelState);
+          return <PropsModel key={modelName} {...modelState} />;
+        }
+        return null;
+        })}
     </>
   )
 };

@@ -49,6 +49,7 @@ export const CustomizationProvider = (props) => {
   const [textColor, setTextColor] = useState('#000000'); // Default color is black
   const [backgroundImage, setBackgroundImage] = useState(backgroundImages[0]);
   const [groundTxt, setGroundTxt] = useState(groundTxts[0]);
+  const [modelsState, setModelsState] = useState({});
 
   return (
     <CustomizationContext.Provider
@@ -67,7 +68,9 @@ export const CustomizationProvider = (props) => {
         groundTxts,
         groundTxt,
         setGroundTxt,
-        checkBoxes
+        checkBoxes,
+        modelsState,
+        setModelsState
       }}
     >
       {props.children}

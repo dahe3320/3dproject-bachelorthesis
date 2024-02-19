@@ -6,8 +6,7 @@ const Ground = () => {
     const { groundTxt } = useCustomization();
     
     const texture = useTexture(groundTxt.src);
-    console.log(groundTxt.src);
-
+    
     return (
         <mesh position={[0 , -4, -5]} rotation={[-Math.PI / 2, 0, 0]}>
             <planeGeometry args={[40, 40]} />
