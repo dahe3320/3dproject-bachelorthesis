@@ -7,8 +7,7 @@ import Interface from './components/Interface'
 import { CustomizationProvider } from './editor/Customize'
 import { Raytracer } from "@react-three/lgl";
 import { Environment } from '@react-three/drei';
-import PropsModel from './components/PropsModel';
-import Props from './components/Props'
+
 
 function App() {
   return (

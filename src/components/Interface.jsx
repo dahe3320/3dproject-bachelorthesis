@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { Button, Carousel, Form, ListGroup, Tabs, Tab } from 'react-bootstrap';
+import { Button, Carousel, Tabs, Tab, Container, Row, Col, Image } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useCustomization } from '../editor/Customize';
 import * as THREE from 'three';
@@ -12,7 +12,21 @@ const Interface = () => {
   const [groundIndex, setGroundIndex] = useState(0);
   const [propsIndex, setPropsIndex] = useState(0);
 
-  const { setCoverTexture, setSpiralColor, setTextValue, setTextColor, backgroundImages, setBackgroundImage, groundTxts, setGroundTxt } = useCustomization();
+  const { 
+    setCoverTexture,
+    spiralColors,
+    spiralColor, 
+    setSpiralColor,
+    bandColors,
+    bandColor,
+    setBandColor, 
+    setTextValue, 
+    setTextColor, 
+    backgroundImages, 
+    setBackgroundImage, 
+    groundTxts, 
+    setGroundTxt 
+  } = useCustomization();
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -36,15 +50,15 @@ const Interface = () => {
     }
   };
 
-  const handleSpiralColor = (e) => {
+  const handleSpiralColor = (color) => {
     if (setSpiralColor) {
-      setSpiralColor(e.target.value);
+      setSpiralColor(color);
     }
   }
 
-  const handleRubberColor = (e) => {
-    if (setRubberColor) {
-      setRubberColor(e.target.value);
+  const handleBandColor = (color) => {
+    if (setBandColor) {
+      setBandColor(color);
     }
   }
 
@@ -84,15 +98,60 @@ const Interface = () => {
   }, []);
 
   return (
-    <div className="interface">
+    <div className="interface" data-bs-theme='dark'>
       <Tabs defaultActiveKey="Kalender" id="configurator-tab" className="mb-3" style={{ fontSize: '10px', fontWeight: '800'}}>
         <Tab eventKey="Kalender" title="KALENDER">
+          <div className='pick-model-container'>
+            <Container>
+              <Row>
+                <Col>
+                  <Image src="https://via.placeholder.com/100" rounded />
+                  <h6>A5</h6>
+                </Col>
+                <Col>
+                  <Image src="https://via.placeholder.com/100" rounded />
+                  <h6>A6</h6>
+                </Col>
+              </Row>
+            </Container>
+          </div>
           {/* Color picker for Spiral color */}
-          <label>Choose Spiral color:</label>
-          <input type="color" onChange={handleSpiralColor} />
-
-          <label>Choose Rubber color:</label>
-          <input type="color" onChange={handleRubberColor} />
+          
+            <div className='model-tab-title'>Spiral</div>
+            <div className="model-tab-config">
+          {spiralColors.map((hex, index) => (
+            <div
+              key={index}
+              className={`trait ${
+                hex.color === spiralColor.color ? "trait-spec" : ""
+              }`}
+              onClick={() => handleSpiralColor(hex)}
+            >
+              <div
+                className="trait-box"
+                style={{ backgroundColor: hex.color }}
+              />
+            </div>
+          ))}
+        </div>
+        <div className='model-tab-title'>Gummiband</div>
+            <div className="model-tab-config">
+          {bandColors.map((hex, index) => (
+            <div
+              key={index}
+              className={`trait ${
+                hex.color === bandColor.color ? "trait-spec" : ""
+              }`}
+              onClick={() => handleBandColor(hex)}
+            >
+              <div
+                className="trait-box"
+                style={{ backgroundColor: hex.color }}
+              />
+            </div>
+          ))}
+        </div>
+          
 
           {/* Other configurator UI components */}
           <div className="controls-container">

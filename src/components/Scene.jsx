@@ -13,7 +13,7 @@ import * as THREE from 'three';
 import { useCustomization } from '../editor/Customize';
 
 function Scene(props) {
-  const { coverTexture, spiralColor, setCoverTexture, textValue, textColor } = useCustomization();
+  const { coverTexture, spiralColor, bandColor, textValue, textColor } = useCustomization();
   const { nodes, materials } = useGLTF('./models/scene.gltf');
 
     // Use a default texture initially
@@ -51,9 +51,11 @@ function Scene(props) {
             </Decal>
           </mesh>
           <mesh geometry={nodes.Spiral_Notebook_Spiral_Notebook_Backboard_0.geometry} material={materials.Spiral_Notebook_Backboard} />
-          <mesh geometry={nodes.Spiral_Notebook_Paper_0.geometry} material={materials.Paper} />
+          <mesh geometry={nodes.Spiral_Notebook_Paper_0.geometry} material={materials.Paper}>
+            <meshBasicMaterial color={bandColor.color} />
+          </mesh>
           <mesh geometry={nodes.Spiral_Notebook_Spiral_Chome_0.geometry}>
-            <meshBasicMaterial color={new THREE.Color(spiralColor)} />
+            <meshBasicMaterial color={spiralColor.color} />
           </mesh>
         </group>
       </group>

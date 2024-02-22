@@ -7,8 +7,6 @@ import {
     Environment,
     PerspectiveCamera,
   } from "@react-three/drei";
-// import Diary from "./Diary";
-// import Notebook from "./Notebook";
 import Scene from "./Scene";
 import Background from "./Background";
 import Ground from "./Ground";

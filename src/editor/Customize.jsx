@@ -1,5 +1,27 @@
 import { createContext, useContext, useState } from 'react';
 
+const spiralColors = [
+  { color: '#ffffff', name: 'white' },
+  { color: '#000000', name: 'black' },
+  { color: '#ff0000', name: 'red' },
+  { color: '#00ff00', name: 'green' },
+  { color: '#0000ff', name: 'blue' },
+  { color: '#ffff00', name: 'yellow' },
+  { color: '#ff00ff', name: 'magenta' },
+  { color: '#00ffff', name: 'cyan' }
+];
+
+const bandColors = [
+  { color: '#ffffff', name: 'white' },
+  { color: '#000000', name: 'black' },
+  { color: '#ff0000', name: 'red' },
+  { color: '#00ff00', name: 'green' },
+  { color: '#0000ff', name: 'blue' },
+  { color: '#ffff00', name: 'yellow' },
+  { color: '#ff00ff', name: 'magenta' },
+  { color: '#00ffff', name: 'cyan' }
+];
+
 const backgroundImages = [
   {
     src: './src/assets/Occult-dark_org.jpg',
@@ -35,16 +57,18 @@ const checkBoxes = [
   { label: 'Blomma', name: 'prop2', x: 0, z: 0 },
   { label: 'Pennskrin', name: 'prop3', x: 0, z: 0 },
   { label: 'Ljus', name: 'prop4', x: 0, z: 0},
-  { label: 'Pennor/pennhållare', name: 'prop5', x: 0, z: 0},
+  { label: 'Pennor', name: 'prop5', x: 0, z: 0},
   { label: 'Kaffe', name: 'prop6', x: 0, z: 0},
   { label: 'Gem', name: 'prop7', x: 0, z: 0},
 ];
+/* Lägga till bokmärken? */ 
 
 const CustomizationContext = createContext({});
 
 export const CustomizationProvider = (props) => {
   const [coverTexture, setCoverTexture] = useState(null);
   const [spiralColor, setSpiralColor] = useState('#ffffff'); // Default color is white
+  const [bandColor, setBandColor] = useState('#ffffff'); // Default color is white
   const [textValue, setTextValue] = useState(''); // Default text is empty string 
   const [textColor, setTextColor] = useState('#000000'); // Default color is black
   const [backgroundImage, setBackgroundImage] = useState(backgroundImages[0]);
@@ -56,8 +80,12 @@ export const CustomizationProvider = (props) => {
       value={{
         coverTexture,
         setCoverTexture,
+        spiralColors,
         spiralColor,
         setSpiralColor,
+        bandColors,
+        bandColor,
+        setBandColor,
         textValue, 
         setTextValue,
         textColor,
