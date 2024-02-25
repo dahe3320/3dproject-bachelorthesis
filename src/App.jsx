@@ -4,14 +4,18 @@ import * as THREE from 'three'
 import './App.css'
 import Enviroment from './components/Enviroment'
 import Interface from './components/Interface'
-import { CustomizationProvider } from './editor/Customize'
+import { ModelProvider } from './editor/ModelCustomizer'
+import { EnviromentProvider } from './editor/EnviromentCustomizer'
+import { PropsProvider } from './editor/PropsCustomizer'
 import { Raytracer } from "@react-three/lgl";
 import { Environment } from '@react-three/drei';
 
 
 function App() {
   return (
-    <CustomizationProvider>
+    <ModelProvider>
+    <EnviromentProvider>
+    <PropsProvider>
       <div className="App">
       <Suspense fallback={null}>
         <Canvas dpr={[2,4]} id='canvas-container' gl={{ preserveDrawingBuffer: true }}>
@@ -22,7 +26,9 @@ function App() {
         <Interface />
         </Suspense>
       </div>
-    </CustomizationProvider>  
+    </PropsProvider>
+    </EnviromentProvider>
+    </ModelProvider>
   )
 }
 

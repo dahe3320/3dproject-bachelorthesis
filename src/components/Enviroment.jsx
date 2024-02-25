@@ -14,7 +14,7 @@ import React, { Suspense, useRef } from "react";
 import { DirectionalLightHelper, PointLightHelper, SpotLightHelper } from "three";
 import { Raytracer } from "@react-three/lgl";
 import  PropsModel from "./PropsModel";
-import { useCustomization } from "../editor/Customize";
+import { usePropsCustomization } from "../editor/PropsCustomizer";
 
 
 const Enviroment = () => {
@@ -22,7 +22,7 @@ const Enviroment = () => {
       useHelper(dirLght, DirectionalLightHelper,'red');
   const lghgh = useRef();
       useHelper(lghgh, PointLightHelper,'red');
-  const { modelsState } = useCustomization();
+  const { modelsState } = usePropsCustomization();
 
 
     return (
@@ -34,7 +34,7 @@ const Enviroment = () => {
         intensity={1.5}
         angle={0.6}
         penumbra={0.5}
-        position={[0, 25, 20]}
+        position={[30, 55, 50]}
         castShadow
         shadow-bias={-0.0001}
       />

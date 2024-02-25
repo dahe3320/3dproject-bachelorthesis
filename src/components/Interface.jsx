@@ -1,7 +1,8 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { Button, Carousel, Tabs, Tab, Container, Row, Col, Image } from 'react-bootstrap';
+import { Button, Carousel, Tabs, Tab, Container, Row, Col, Image, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useCustomization } from '../editor/Customize';
+import { useModelCustomization } from '../editor/ModelCustomizer';
+import { useEnviromentCustomization } from '../editor/EnviromentCustomizer';
 import * as THREE from 'three';
 import html2canvas from 'html2canvas';
 import Props from './Props';
@@ -14,6 +15,8 @@ const Interface = () => {
 
   const { 
     setCoverTexture,
+    setPositionX,
+    setPositionZ,
     spiralColors,
     spiralColor, 
     setSpiralColor,
@@ -22,11 +25,9 @@ const Interface = () => {
     setBandColor, 
     setTextValue, 
     setTextColor, 
-    backgroundImages, 
-    setBackgroundImage, 
-    groundTxts, 
-    setGroundTxt 
-  } = useCustomization();
+  } = useModelCustomization();
+
+  const { backgroundImages, setBackgroundImage, groundTxts, setGroundTxt } = useEnviromentCustomization();
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -47,6 +48,18 @@ const Interface = () => {
       } else {
         console.error('Unsupported file extension:', extension);
       }
+    }
+  };
+
+  const handlePositionX = (e) => {
+    if (setPositionX) {
+      setPositionX(e.target.value);
+    }
+  };
+
+  const handlePositionZ = (e) => {
+    if (setPositionZ) {
+      setPositionZ(e.target.value);
     }
   };
 
@@ -115,6 +128,20 @@ const Interface = () => {
               </Row>
             </Container>
           </div>
+          <Form.Group className="mb-3 d-flex align-items-center">
+            <Form.Label className='mx-2'>X:</Form.Label>
+            <Form.Control 
+            type="number" 
+            size='sm'
+            onChange={(e) => handlePositionX(e)} 
+            style={{ width: '20%' }} />
+            <Form.Label className='mx-2'>Z:</Form.Label>
+            <Form.Control 
+            type="number" 
+            size='sm'
+            onChange={(e) => handlePositionZ(e)} 
+            style={{ width: '20%' }} />
+          </Form.Group>
           {/* Color picker for Spiral color */}
           
             <div className='model-tab-title'>Spiral</div>
@@ -194,8 +221,7 @@ const Interface = () => {
                 <Carousel.Item key={ix}>
                   <img
                     className="img-block"
-                    src={txt.src}
-                    alt={txt.alt}
+                    src={txt.diffuse}
                   />
                 </Carousel.Item>
               ))}

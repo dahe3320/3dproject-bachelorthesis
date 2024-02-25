@@ -10,10 +10,10 @@ Title: Spiral Notebook
 import React, { useRef } from 'react'
 import { Decal, useGLTF, useTexture, Text } from '@react-three/drei'
 import * as THREE from 'three';
-import { useCustomization } from '../editor/Customize';
+import { useModelCustomization } from '../editor/ModelCustomizer';
 
 function Scene(props) {
-  const { coverTexture, spiralColor, bandColor, textValue, textColor } = useCustomization();
+  const { coverTexture, positionX, positionZ, spiralColor, bandColor, textValue, textColor } = useModelCustomization();
   const { nodes, materials } = useGLTF('./models/scene.gltf');
 
     // Use a default texture initially
@@ -27,8 +27,8 @@ function Scene(props) {
 
   return (
     <group {...props} dispose={null}>
-      <group scale={0.5} position-z={-4}>
-        <group rotation={[-Math.PI / 2, 0, 0]} scale={25}>
+      <group scale={2} position={[positionX, -3, positionZ]}>
+        <group rotation={[-Math.PI / 1, 0, 0]} scale={25}>
           <mesh geometry={nodes.Spiral_Notebook_Spiral_Notebook_Cover_0.geometry}>
             <meshBasicMaterial transparent opacity={0}/>
             <Decal

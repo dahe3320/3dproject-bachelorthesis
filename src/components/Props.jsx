@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useCustomization } from "../editor/Customize";
+import { usePropsCustomization } from "../editor/PropsCustomizer";
 import { Form } from "react-bootstrap";
 import PropsModel from "./PropsModel";
 
 const Props = () => {
-  const { checkBoxes, setModelsState } = useCustomization();
+  const { checkBoxes, setModelsState } = usePropsCustomization();
   const [checkedState, setCheckedState] = useState({});
   const [propStates, setPropStates] = useState({});
 

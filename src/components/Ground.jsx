@@ -1,18 +1,77 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLoader } from '@react-three/fiber';
 import { MeshReflectorMaterial, useTexture } from '@react-three/drei';
-import { useCustomization } from '../editor/Customize';
+import { useEnviromentCustomization } from '../editor/EnviromentCustomizer';
+import { TextureLoader, RepeatWrapping, MirroredRepeatWrapping, Mesh } from 'three';
 
 const Ground = () => {
-    const { groundTxt } = useCustomization();
+    const { groundTxt } = useEnviromentCustomization();
+    const [aoMap, diffuseMap, normalMap, roughnessMap] = useLoader(TextureLoader, [
+        groundTxt.ao,
+        groundTxt.diffuse,
+        groundTxt.normal,
+        groundTxt.roughness,
+      ]);
+      
+      // Applying properties to all textures
+      useEffect(() => {
+        const textures = [aoMap, diffuseMap, normalMap, roughnessMap];
+
+        if (textures.some((texture) => !texture)) {
+          console.log('Some textures are not loaded yet'); 
+          return;
+        }
+   
+
+        textures.forEach((texture) => {
+        texture.repeat.set(5, 5);
+        texture.offset.set(0, 0);
+        texture.wrapS = RepeatWrapping; // Assuming default repeat wrapping for all
+        texture.wrapT = RepeatWrapping; // Assuming default repeat wrapping for all
+      });
+      }, [aoMap, diffuseMap, normalMap, roughnessMap]);
+
+      
     
-    const texture = useTexture(groundTxt.src);
+      // Adjust wrapS and wrapT for specific textures if needed, for example:
+      // textures[4].wrapS = textures[4].wrapT = MirroredRepeatWrapping; // For normalMap if it's the fifth texture in the array
     
+      //const [aoMap, armMap, diffuseMap, displacementMap, normalMap, roughnessMap] = textures;
+    
+    
+    // const [aoMap, armMap, diffuseMap, displacementMap, normalMap, roughnessMap ] = useTexture([
+    //     groundTxt.ao,
+    //     groundTxt.arm,
+    //     groundTxt.diffuse,
+    //     groundTxt.displacement,
+    //     groundTxt.normal,
+    //     groundTxt.roughness,
+    // ]);
+
+    // aoMap.repeat.set(8, 8);
+    // armMap.repeat.set(8, 8);
+    // diffuseMap.repeat.set(8, 8);
+    // displacementMap.repeat.set(8, 8);
+    // normalMap.repeat.set(8, 8);
+    // roughnessMap.repeat.set(8, 8);
+    // aoMap.wrapS = aoMap.wrapT = THREE.RepeatWrapping;
+    // armMap.wrapS = armMap.wrapT = THREE.RepeatWrapping;
+    // diffuseMap.wrapS = diffuseMap.wrapT = THREE.RepeatWrapping;
+    // displacementMap.wrapS = displacementMap.wrapT = THREE.RepeatWrapping;
+    // normalMap.wrapS = normalMap.wrapT = THREE.MirroredRepeatWrapping;
+    // roughnessMap.wrapS = roughnessMap.wrapT = THREE.MirroredRepeatWrapping;
+
+    
+
     return (
         <mesh position={[0 , -4, -5]} rotation={[-Math.PI / 2, 0, 0]}>
-            <planeGeometry args={[40, 40]} />
+            <planeGeometry args={[80, 80]} />
             <MeshReflectorMaterial
             attach="material" 
-            map={texture}
+            aoMap={aoMap}
+            map={diffuseMap}
+            normalMap={normalMap} 
+            roughnessMap={roughnessMap}
             dithering={true}
             roughness={0.7}
             blur={[1000, 400]} 

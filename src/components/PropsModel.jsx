@@ -1,21 +1,22 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
+import * as THREE from "three";
 
 const PropsModel = ({ x, z, visibility }) => {
   if (!visibility) return null;
 
     //const meshRef = useRef();
 
-    const url = './models/coffee_mug__kaffeetasse.glb';
+    
     
     // const modelTexture = useTexture(gltf.scene.children[0].material.map);
-    const { scene } = useGLTF(url);
-
+    const { scene } = useGLTF('./models/scene.gltf');
     const clone = useMemo(() => scene.clone(true), [scene]);
+    console.log(clone);
   
 
     useEffect(() => {
-      clone.scale.set(0.05, 0.05, 0.05);
+      clone.scale.set(3, 3, 3);
     });
     // useEffect(() => {
     //   meshRef.current = clone;

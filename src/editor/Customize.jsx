@@ -24,31 +24,43 @@ const bandColors = [
 
 const backgroundImages = [
   {
-    src: './src/assets/Occult-dark_org.jpg',
+    src: './src/assets/beige-asset-wall.jpg',
     alt: 'First slide'
   },
   {
-    src: './src/assets/2024-y2k.jpg',
+    src: './src/assets/beige-plaster-wall.jpg',
     alt: 'Second slide'
   },
   {
-    src: './src/assets/office_plane.jpg',
+    src: './src/assets/white-brick-wall.jpg',
     alt: 'Third slide'
   }
 ];
 
 const groundTxts = [
   {
-    src: './src/assets/office_plane.jpg',
-    alt: 'First ground'
+    ao: './models/textures/floor_tiles/floor_tiles_02_ao_4k.jpg',
+    arm: './models/textures/floor_tiles/floor_tiles_02_arm_4k.jpg',
+    diffuse: './models/textures/floor_tiles/floor_tiles_02_diff_4k.jpg',
+    displacement: './models/textures/floor_tiles/floor_tiles_02_disp_4k.jpg',
+    normal: './models/textures/floor_tiles/floor_tiles_02_nor_4k.jpg',
+    roughness: './models/textures/floor_tiles/floor_tiles_02_rough_4k.jpg'
   },
   {
-    src: './src/assets/2024-y2k.jpg',
-    alt: 'Second ground'
+    ao: './models/textures/laminate_floor/laminate_floor_02_ao_4k.jpg',
+    arm: './models/textures/laminate_floor/laminate_floor_02_arm_4k.jpg',
+    diffuse: './models/textures/laminate_floor/laminate_floor_02_diff_4k.jpg',
+    displacement: './models/textures/laminate_floor/laminate_floor_02_disp_4k.jpg',
+    normal: './models/textures/laminate_floor/laminate_floor_02_nor_4k.jpg',
+    roughness: './models/textures/laminate_floor/laminate_floor_02_rough_4k.jpg'
   },
   {
-    src: './src/assets/Occult-dark_org.jpg',
-    alt: 'Third ground'
+    ao: './models/textures/wood_table/wood_table_001_ao_4k.jpg',
+    arm: './models/textures/wood_table/wood_table_001_arm_4k.jpg',
+    diffuse: './models/textures/wood_table/wood_table_001_diff_4k.jpg',
+    displacement: './models/textures/wood_table/wood_table_001_disp_4k.jpg',
+    normal: './models/textures/wood_table/wood_table_001_nor_4k.jpg',
+    roughness: './models/textures/wood_table/wood_table_001_rough_4k.jpg'
   }
 ];
 
@@ -67,6 +79,8 @@ const CustomizationContext = createContext({});
 
 export const CustomizationProvider = (props) => {
   const [coverTexture, setCoverTexture] = useState(null);
+  const [positionX, setPositionX] = useState(0);
+  const [positionZ, setPositionZ] = useState(0);
   const [spiralColor, setSpiralColor] = useState('#ffffff'); // Default color is white
   const [bandColor, setBandColor] = useState('#ffffff'); // Default color is white
   const [textValue, setTextValue] = useState(''); // Default text is empty string 
@@ -80,6 +94,10 @@ export const CustomizationProvider = (props) => {
       value={{
         coverTexture,
         setCoverTexture,
+        positionX,
+        setPositionX,
+        positionZ,
+        setPositionZ,
         spiralColors,
         spiralColor,
         setSpiralColor,
