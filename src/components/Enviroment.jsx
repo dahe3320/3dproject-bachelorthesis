@@ -53,7 +53,6 @@ const Enviroment = () => {
         <Ground />
         {Object.entries(modelsState).map(([modelName, modelState]) => {
           if (modelState.visibility) {
-            console.log(modelName, modelState);
           return <PropsModel key={modelName} {...modelState} />;
         }
         return null;

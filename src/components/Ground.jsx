@@ -6,16 +6,16 @@ import { TextureLoader, RepeatWrapping, MirroredRepeatWrapping, Mesh } from 'thr
 
 const Ground = () => {
     const { groundTxt } = useEnviromentCustomization();
-    const [aoMap, diffuseMap, normalMap, roughnessMap] = useLoader(TextureLoader, [
-        groundTxt.ao,
-        groundTxt.diffuse,
-        groundTxt.normal,
-        groundTxt.roughness,
+    const [diffuseMap, displacementMap, normalMap, roughnessMap] = useLoader(TextureLoader, [
+      groundTxt.diffuse,
+      groundTxt.displacement,
+      groundTxt.normal,
+      groundTxt.roughness,
       ]);
       
       // Applying properties to all textures
       useEffect(() => {
-        const textures = [aoMap, diffuseMap, normalMap, roughnessMap];
+        const textures = [diffuseMap, displacementMap, normalMap, roughnessMap];
 
         if (textures.some((texture) => !texture)) {
           console.log('Some textures are not loaded yet'); 
@@ -29,7 +29,7 @@ const Ground = () => {
         texture.wrapS = RepeatWrapping; // Assuming default repeat wrapping for all
         texture.wrapT = RepeatWrapping; // Assuming default repeat wrapping for all
       });
-      }, [aoMap, diffuseMap, normalMap, roughnessMap]);
+      }, [diffuseMap, displacementMap, normalMap, roughnessMap]);
 
       
     
@@ -68,8 +68,8 @@ const Ground = () => {
             <planeGeometry args={[80, 80]} />
             <MeshReflectorMaterial
             attach="material" 
-            aoMap={aoMap}
             map={diffuseMap}
+            displacementMap={displacementMap}
             normalMap={normalMap} 
             roughnessMap={roughnessMap}
             dithering={true}

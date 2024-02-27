@@ -221,7 +221,7 @@ const Interface = () => {
                 <Carousel.Item key={ix}>
                   <img
                     className="img-block"
-                    src={txt.diffuse}
+                    src={txt.placeholder}
                   />
                 </Carousel.Item>
               ))}

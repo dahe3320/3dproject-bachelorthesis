@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useCallback, useRef, useState } from "react";
 import { usePropsCustomization } from "../editor/PropsCustomizer";
 import { Form } from "react-bootstrap";
 import PropsModel from "./PropsModel";
@@ -8,24 +8,26 @@ const Props = () => {
   const [checkedState, setCheckedState] = useState({});
   const [propStates, setPropStates] = useState({});
 
-  const handleCheckboxChange = (checkbox) => {
+  const handleCheckboxChange = useCallback((checkbox) => {
+    console.log(`Model Path: ${checkbox.path}`);
     
     setCheckedState((prevCheckedState) => {
       const newCheckedState = {
-      ...prevCheckedState,
-      [checkbox.name]: !prevCheckedState[checkbox.name],
-    };
-
-    setModelsState((prevModelsState) => ({
-      ...prevModelsState,
-      [checkbox.name]: {
-        ...prevModelsState[checkbox.name],
-        visibility: newCheckedState[checkbox.name],
-      x: propStates[checkbox.name]?.x || 0,
-      z: propStates[checkbox.name]?.z || 0,
-      },
-
-    }));
+        ...prevCheckedState,
+        [checkbox.name]: !prevCheckedState[checkbox.name],
+      };
+      
+      setModelsState((prevModelsState) => ({
+        ...prevModelsState,
+        [checkbox.name]: {
+          ...prevModelsState[checkbox.name],
+          visibility: newCheckedState[checkbox.name],
+          x: propStates[checkbox.name]?.x || 0,
+          z: propStates[checkbox.name]?.z || 0,
+          path: `${checkbox.path}`,
+        },
+        
+      }));
 
     return newCheckedState;
   });
@@ -39,7 +41,7 @@ const Props = () => {
         },
       }));
     }
-  };
+  }, [setModelsState, setPropStates, checkedState, propStates]);
 
 
   const handleXChange = (e, prop) => {
@@ -110,9 +112,11 @@ const Props = () => {
             )}
             {checkedState[checkbox.name] && (
               <PropsModel 
-              key={index} 
+              key={checkbox.name} 
               x={propStates[checkbox.name]?.x} 
               z={propStates[checkbox.name]?.z}
+              visibility={true}
+              path={checkbox.path}
               />         
             )}
           </React.Fragment>

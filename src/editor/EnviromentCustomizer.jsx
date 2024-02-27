@@ -17,24 +17,27 @@ const backgroundImages = [
   
   const groundTxts = [
     {
-      ao: './models/textures/floor_tiles/floor_tiles_02_ao_4k.jpg',
-      arm: './models/textures/floor_tiles/floor_tiles_02_arm_4k.jpg',
+      placeholder: './models/textures/floor_tiles/floor_tiles_02_diff_4k.jpg',
+      // ao: './models/textures/floor_tiles/floor_tiles_02_ao_4k.jpg',
+      // arm: './models/textures/floor_tiles/floor_tiles_02_arm_4k.jpg',
       diffuse: './models/textures/floor_tiles/floor_tiles_02_diff_4k.jpg',
       displacement: './models/textures/floor_tiles/floor_tiles_02_disp_4k.jpg',
       normal: './models/textures/floor_tiles/floor_tiles_02_nor_4k.jpg',
       roughness: './models/textures/floor_tiles/floor_tiles_02_rough_4k.jpg'
     },
     {
-      ao: './models/textures/laminate_floor/laminate_floor_02_ao_4k.jpg',
-      arm: './models/textures/laminate_floor/laminate_floor_02_arm_4k.jpg',
+      placeholder: './models/textures/laminate_floor/laminate_floor_02_diff_4k.jpg',
+      // ao: './models/textures/laminate_floor/laminate_floor_02_ao_4k.jpg',
+      // arm: './models/textures/laminate_floor/laminate_floor_02_arm_4k.jpg',
       diffuse: './models/textures/laminate_floor/laminate_floor_02_diff_4k.jpg',
       displacement: './models/textures/laminate_floor/laminate_floor_02_disp_4k.jpg',
       normal: './models/textures/laminate_floor/laminate_floor_02_nor_4k.jpg',
       roughness: './models/textures/laminate_floor/laminate_floor_02_rough_4k.jpg'
     },
     {
-      ao: './models/textures/wood_table/wood_table_001_ao_4k.jpg',
-      arm: './models/textures/wood_table/wood_table_001_arm_4k.jpg',
+      placeholder: './models/textures/wood_table/wood_table_001_diff_4k.jpg',
+      // ao: './models/textures/wood_table/wood_table_001_ao_4k.jpg',
+      // arm: './models/textures/wood_table/wood_table_001_arm_4k.jpg',
       diffuse: './models/textures/wood_table/wood_table_001_diff_4k.jpg',
       displacement: './models/textures/wood_table/wood_table_001_disp_4k.jpg',
       normal: './models/textures/wood_table/wood_table_001_nor_4k.jpg',
