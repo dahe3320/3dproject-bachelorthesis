@@ -4,17 +4,27 @@ import * as THREE from "three";
 
 const PropsModel = ({ x, z, visibility, path }) => {
   console.log(path);
+  console.log(visibility);
   if (!visibility) return null;
 
     // const modelTexture = useTexture(gltf.scene.children[0].material.map);
     const { scene } = useGLTF(path);
     const clone = useMemo(() => scene.clone(true), [scene]);
-    console.log(clone);
-  
-
     useEffect(() => {
-      clone.scale.set(3, 3, 3);
-    });
+      clone.traverse((child) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+          if (child.material.map) {
+            child.material = new THREE.MeshStandardMaterial({
+              map: child.material.map,
+              color: 0xffffff,
+            });
+          }
+        }
+      });
+    }
+    , [clone]);
   
       return (
         <primitive object={clone} position={[x, 0, z]} /> 

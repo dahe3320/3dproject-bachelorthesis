@@ -17,31 +17,34 @@ const Props = () => {
         [checkbox.name]: !prevCheckedState[checkbox.name],
       };
       
+      return newCheckedState;
+    });
+  }, []);
+
+  useEffect(() => {
+    Object.entries(checkedState).forEach(([name, isChecked]) => {
       setModelsState((prevModelsState) => ({
         ...prevModelsState,
-        [checkbox.name]: {
-          ...prevModelsState[checkbox.name],
-          visibility: newCheckedState[checkbox.name],
-          x: propStates[checkbox.name]?.x || 0,
-          z: propStates[checkbox.name]?.z || 0,
-          path: `${checkbox.path}`,
-        },
-        
-      }));
-
-    return newCheckedState;
-  });
-
-    if (!checkedState[checkbox.name]) {
-      setPropStates((prevPropStates) => ({
-        ...prevPropStates,
-        [checkbox.name]: {
-          x: 0,
-          z: 0,
+        [name]: {
+          ...prevModelsState[name],
+          visibility: isChecked,
+          x: propStates[name]?.x || 0,
+          z: propStates[name]?.z || 0,
+          path: checkBoxes.find(checkbox => checkbox.name === name)?.path,
         },
       }));
-    }
-  }, [setModelsState, setPropStates, checkedState, propStates]);
+  
+      if (!isChecked) {
+        setPropStates((prevPropStates) => ({
+          ...prevPropStates,
+          [name]: {
+            x: 0,
+            z: 0,
+          },
+        }));
+      }
+    });
+  }, [checkedState, setModelsState, setPropStates, propStates, checkBoxes]);
 
 
   const handleXChange = (e, prop) => {
