@@ -24,6 +24,7 @@ const Ground = () => {
    
 
         textures.forEach((texture) => {
+        texture.needsUpdate = true;
         texture.repeat.set(5, 5);
         texture.offset.set(0, 0);
         texture.wrapS = RepeatWrapping; // Assuming default repeat wrapping for all

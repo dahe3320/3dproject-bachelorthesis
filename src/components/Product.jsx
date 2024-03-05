@@ -47,20 +47,21 @@ function Product(props) {
         castShadow
         receiveShadow
         geometry={nodes.FrontCover002.geometry}>
-            <meshBasicMaterial transparent opacity={0}/>
+            <meshStandardMaterial />
             <Decal
-            position={[0, -0.03, 0]}
-            rotation={[1.57, 0, 0]}
-            scale={[0.25, 0.31, 0.1]}
+            position={[0, 0, -0.5]}
+            rotation={[-7.85, 0, 1.57]}
+            scale={[14, 21, 10]}
+            debug
             >
-            <Text 
+            {/* <Text 
             position={[0, -0.01, 0]} // adjust these values
             rotation={[1.57, 0, 0]} // adjust these values
             scale={[0.01, 0.01, 0.05]} // adjust these values
             >
               {textValue}
               <meshBasicMaterial color={new THREE.Color(textColor)} />
-            </Text>  
+            </Text>   */}
               <meshBasicMaterial 
                 map={currentTexture}
                 polygonOffset
@@ -77,7 +78,7 @@ function Product(props) {
         castShadow
         receiveShadow
         geometry={nodes.Spiral.geometry}>
-            <meshBasicMaterial color={spiralColor.color} />
+            <meshStandardMaterial color={spiralColor.color} />
         </mesh>
       <mesh
         castShadow

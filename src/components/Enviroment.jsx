@@ -3,7 +3,7 @@ import {
     ContactShadows,
     OrbitControls,
     useHelper,
-    SpotLight,
+    Stage,
     Environment,
     PerspectiveCamera,
   } from "@react-three/drei";
@@ -18,10 +18,10 @@ import { usePropsCustomization } from "../editor/PropsCustomizer";
 
 
 const Enviroment = () => {
-  const dirLght = useRef();
-      useHelper(dirLght, DirectionalLightHelper,'red');
-  const lghgh = useRef();
-      useHelper(lghgh, PointLightHelper,'red');
+  // const dirLght = useRef();
+  //     useHelper(dirLght, DirectionalLightHelper,'red');
+  // const lghgh = useRef();
+  //     useHelper(lghgh, PointLightHelper,'red');
   const { modelsState } = usePropsCustomization();
 
 
@@ -30,7 +30,7 @@ const Enviroment = () => {
         <OrbitControls target={[0, 0.35, 0]}
         maxPolarAngle={1.45}/>
 
-        <directionalLight ref={dirLght}
+        {/* <directionalLight ref={dirLght}
         intensity={1.5}
         angle={0.6}
         penumbra={0.5}
@@ -46,8 +46,8 @@ const Enviroment = () => {
         position={[-10, 15, 10]}
         castShadow
         shadow-bias={-0.0001}
-      />
-       
+      /> */}
+       <Stage environment="apartment" intensity={0.05} castShadow={true}>
         <Product />
         <Background />
         <Ground />
@@ -57,6 +57,7 @@ const Enviroment = () => {
         }
         return null;
         })}
+        </Stage>
     </>
   )
 };
