@@ -40,7 +40,7 @@ const Background = () => {
     // });
     
     return (
-        <mesh position={[0, 17, -30]}>
+        <mesh position={[0, 20, -30]}>
             <planeGeometry args={[80, 40]} />
             <meshStandardMaterial  attach='material' map={texture} />
         </mesh>

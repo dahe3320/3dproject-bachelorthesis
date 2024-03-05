@@ -29,6 +29,7 @@ const Interface = () => {
 
   const { backgroundImages, setBackgroundImage, groundTxts, setGroundTxt } = useEnviromentCustomization();
 
+
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -94,9 +95,11 @@ const Interface = () => {
   }
 
   const handleGround = (usedIndex) => {
+    if (usedIndex !== groundIndex) {
     setGroundIndex(usedIndex);
     console.log('usedIndex', usedIndex);
     setGroundTxt(groundTxts[usedIndex]);
+    }
   }
 
   const handleScreenshot = useCallback(() => {
@@ -203,7 +206,7 @@ const Interface = () => {
         <Tab eventKey="Bakgrund" title="BAKGRUND">
           <h4>Background</h4>
           <div className='carousel-block-1'>
-            <Carousel interval={null} className='background-container' activeIndex={backgroundIndex} onSelect={handleBackground}>
+            <Carousel interval={null} slide={false} fade={false} className='background-container' activeIndex={backgroundIndex} onSelect={handleBackground}>
               {backgroundImages.map((image, idx) => (
                 <Carousel.Item key={idx}>
                   <img
@@ -216,7 +219,7 @@ const Interface = () => {
             </Carousel>
           </div>
           <div className='carousel-block-2'>
-            <Carousel interval={null} className='ground-container' activeIndex={groundIndex} onSelect={handleGround}>
+            <Carousel interval={null} slide={false} fade={false} className='ground-container' activeIndex={groundIndex} onSelect={handleGround}>
               {groundTxts.map((txt, ix) => (
                 <Carousel.Item key={ix}>
                   <img

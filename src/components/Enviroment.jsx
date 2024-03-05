@@ -7,7 +7,7 @@ import {
     Environment,
     PerspectiveCamera,
   } from "@react-three/drei";
-import Scene from "./Scene";
+import Product from "./Product";
 import Background from "./Background";
 import Ground from "./Ground";
 import React, { Suspense, useRef } from "react";
@@ -48,7 +48,7 @@ const Enviroment = () => {
         shadow-bias={-0.0001}
       />
        
-        <Scene />
+        <Product />
         <Background />
         <Ground />
         {Object.entries(modelsState).map(([modelName, modelState]) => {

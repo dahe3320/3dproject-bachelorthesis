@@ -64,7 +64,7 @@ const Ground = () => {
     
 
     return (
-        <mesh position={[0 , -4, -5]} rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh position={[0 , 0, -5]} rotation={[-Math.PI / 2, 0, 0]}>
             <planeGeometry args={[80, 80]} />
             <MeshReflectorMaterial
             attach="material" 
