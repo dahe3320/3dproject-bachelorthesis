@@ -8,6 +8,7 @@ import {
     PerspectiveCamera,
   } from "@react-three/drei";
 import Product from "./Product";
+import Test from "./Test";
 import Background from "./Background";
 import Ground from "./Ground";
 import React, { Suspense, useRef } from "react";
@@ -49,6 +50,7 @@ const Enviroment = () => {
       /> */}
        <Stage environment="apartment" intensity={0.05} castShadow={true}>
         <Product />
+        <Test />
         <Background />
         <Ground />
         {Object.entries(modelsState).map(([modelName, modelState]) => {
