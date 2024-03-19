@@ -1,14 +1,14 @@
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
-import * as THREE from 'three'
+import { SRGBColorSpace } from 'three'
 import './App.css'
-import Enviroment from './components/Enviroment'
+import { Enviroment } from './components/Enviroment'
 import Interface from './components/Interface'
 import { ModelProvider } from './editor/ModelCustomizer'
 import { EnviromentProvider } from './editor/EnviromentCustomizer'
 import { PropsProvider } from './editor/PropsCustomizer'
 import { Raytracer } from "@react-three/lgl";
-import { Environment } from '@react-three/drei';
+import { Sky } from '@react-three/drei';
 
 
 function App() {
@@ -18,9 +18,9 @@ function App() {
     <PropsProvider>
       <div className="App">
       <Suspense fallback={null}>
-        <Canvas dpr={[2,4]} id='canvas-container' gl={{ preserveDrawingBuffer: true }}>
-        <color args={[0, 0, 0]} attach="background" />
-        <Enviroment />
+        <Canvas shadows camera={{ position: [0, 15, 25], fov: 45 }} dpr={[1,2]} id='canvas-container' gl={{ preserveDrawingBuffer: true, outputColorSpace: SRGBColorSpace }}>
+          <Sky sunPosition={[100, 10, 100]} inclination={0.6} azimuth={0.25} />
+          <Enviroment />
         </Canvas>
         <Interface />
         </Suspense>

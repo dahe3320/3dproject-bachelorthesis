@@ -2,9 +2,7 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-const PropsModel = ({ x, z, visibility, path }) => {
-  console.log(path);
-  console.log(visibility);
+export const PropsModel = ({ x, z, visibility, path }) => {
   if (!visibility) return null;
 
     // const modelTexture = useTexture(gltf.scene.children[0].material.map);
@@ -15,20 +13,12 @@ const PropsModel = ({ x, z, visibility, path }) => {
         if (child.isMesh) {
           child.castShadow = true;
           child.receiveShadow = true;
-          if (child.material.map) {
-            child.material = new THREE.MeshStandardMaterial({
-              map: child.material.map,
-              color: 0xffffff,
-            });
-          }
         }
       });
     }
     , [clone]);
   
       return (
-        <primitive object={clone} position={[x, 0, z]} /> 
+        <primitive object={clone} position={[x, 10, z]} scale={[10, 10, 10]}/> 
       );
   };
-
-export default PropsModel;

@@ -1,61 +1,61 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 
 const spiralColors = [
-    { color: '#ffffff', name: 'white' },
-    { color: '#000000', name: 'black' },
-    { color: '#ff0000', name: 'red' },
-    { color: '#00ff00', name: 'green' },
-    { color: '#0000ff', name: 'blue' },
-    { color: '#ffff00', name: 'yellow' },
-    { color: '#ff00ff', name: 'magenta' },
-    { color: '#00ffff', name: 'cyan' }
+    { color: '#eeedeb', name: 'white' },
+    { color: '#343332', name: 'black' },
+    { color: '#d65050', name: 'red' },
+    { color: '#f2cee5', name: 'pink' },
+    { color: '#eadfb6', name: 'silver' },
+    { color: '#be9946', name: 'gold' }
   ];
   
   const bandColors = [
-    { color: '#ffffff', name: 'white' },
-    { color: '#000000', name: 'black' },
-    { color: '#ff0000', name: 'red' },
-    { color: '#00ff00', name: 'green' },
-    { color: '#0000ff', name: 'blue' },
-    { color: '#ffff00', name: 'yellow' },
-    { color: '#ff00ff', name: 'magenta' },
-    { color: '#00ffff', name: 'cyan' }
+    { color: '#eeedeb', name: 'white' },
+    { color: '#343332', name: 'black' },
+    { color: '#eadfb6', name: 'silver' },
+    { color: '#be9946', name: 'gold' },
+    { color: '#954140', name: 'red' },
+    { color: '#d6a8a7', name: 'lightpink' },
+    { color: '#c75283', name: 'cerise' },
+    { color: '#90bbad', name: 'cyan' },
+    { color: '#87a0b1', name: 'lightblue' },
+    { color: '#5067a8', name: 'blue' }
   ];
 
   const ModelContext = createContext();
 
   export const ModelProvider = (props) => {
     const [coverTexture, setCoverTexture] = useState(null);
+    const [rotation, setRotation] = useState({ x: 0, y: -Math.PI / 2, z: -Math.PI / 2 }); 
+    const [positionY, setPositionY] = useState(15);
     const [positionX, setPositionX] = useState(0);
     const [positionZ, setPositionZ] = useState(0);
     const [spiralColor, setSpiralColor] = useState('#ffffff'); // Default color is white
     const [bandColor, setBandColor] = useState('#ffffff'); // Default color is white
-    const [textValue, setTextValue] = useState(''); // Default text is empty string 
-    const [textColor, setTextColor] = useState('#000000'); // Default color is black
-
+    
+    const contextValue = useMemo(() => ({
+      coverTexture,
+      setCoverTexture,
+      positionX,
+      setPositionX,
+      positionZ,
+      setPositionZ,
+      positionY,
+      setPositionY,
+      rotation,
+      setRotation,
+      spiralColors,
+      spiralColor,
+      setSpiralColor,
+      bandColors,
+      bandColor,
+      setBandColor
+    }), [coverTexture, positionX, positionZ, positionY, rotation, spiralColor, bandColor]);
+  
     return (
-        <ModelContext.Provider
-            value={{
-                coverTexture,
-                setCoverTexture,
-                positionX,
-                setPositionX,
-                positionZ,
-                setPositionZ,
-                spiralColors,
-                spiralColor,
-                setSpiralColor,
-                bandColors,
-                bandColor,
-                setBandColor,
-                textValue, 
-                setTextValue,
-                textColor,
-                setTextColor
-            }}
-        >  
-            {props.children}
-        </ModelContext.Provider>
+      <ModelContext.Provider value={contextValue}>
+        {props.children}
+      </ModelContext.Provider>
     );
   };
 

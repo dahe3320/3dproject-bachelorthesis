@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useRef, useState } from "react";
 import { usePropsCustomization } from "../editor/PropsCustomizer";
 import { Form } from "react-bootstrap";
-import PropsModel from "./PropsModel";
+import { PropsModel } from "./PropsModel";
 
 const Props = () => {
   const { checkBoxes, setModelsState } = usePropsCustomization();
@@ -93,23 +93,27 @@ const Props = () => {
             {checkedState[checkbox.name] && (
               <Form.Group
                 controlId={`inline-checkbox--${index + 1}`}
-                className="mb-3 d-flex align-items-center"
+                className="mb-3 align-items-center"
               >
                 <Form.Label className="mx-2">X:</Form.Label>
-                <Form.Control
-                  type="number"
+                <Form.Range
                   value={propStates[checkbox.name]?.x || 0}
                   onChange={(e) => handleXChange(e, checkbox)}
                   size="sm"
-                  style={{ width: "20%" }}
+                  min={-20}
+                  max={20}
+                  step={1}
+                  style={{ width: "80%" }}
                 />
                 <Form.Label className="mx-2">Z:</Form.Label>
-                <Form.Control
-                  type="number"
+                <Form.Range
                   value={propStates[checkbox.name]?.z || 0}
                   onChange={(e) => handleZChange(e, checkbox)}
                   size="sm"
-                  style={{ width: "20%" }}
+                  min={-20}
+                  max={20}
+                  step={1}
+                  style={{ width: "80%" }}
                 />
               </Form.Group>
             )}

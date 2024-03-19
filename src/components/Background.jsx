@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { MeshReflectorMaterial, useTexture } from '@react-three/drei';
+import { MeshReflectorMaterial, useTexture, Html } from '@react-three/drei';
 import { useEnviromentCustomization } from '../editor/EnviromentCustomizer';
 import { TextureLoader } from 'three';
+import { Spinner } from 'react-bootstrap';
 
 const Background = () => {
     const { backgroundImage } = useEnviromentCustomization();
@@ -28,22 +29,35 @@ const Background = () => {
   }, [backgroundImage.src]); // Empty dependency array means this effect runs once on mount
 
   if (loading) {
-    return null;
+    return (
+      <Html center>
+        <Spinner animation="border" />
+      </Html>
+    )
   }
-  
-    
-
-    // const texture = useTexture({
-    //     diffuseMap: backgroundImage.diffuse,
-    //     displacementMap: backgroundImage.disp,
-    //     roughnessMap: backgroundImage.roughness, 
-    // });
     
     return (
-        <mesh position={[0, 20, -30]}>
-            <planeGeometry args={[80, 40]} />
-            <meshStandardMaterial  attach='material' map={texture} />
+      <group>
+        <mesh castShadow receiveShadow position={[0, 40, -60]}>
+            <boxGeometry args={[120, 80]} />
+            <meshBasicMaterial
+            attach='material' map={texture} />
         </mesh>
+        <mesh castShadow receiveShadow position={[60, 40, -20]} rotation={[0, Math.PI / 2, 0]}>
+            <boxGeometry args={[80, 80]} />
+            <meshStandardMaterial
+            attach='material' map={texture} />
+        </mesh>
+        <mesh castShadow receiveShadow position={[-60, 40, -20]} rotation={[0, -Math.PI / 2, 0]}>
+            <boxGeometry args={[80, 80]} />
+            <meshStandardMaterial
+            attach='material' map={texture} />
+        </mesh>
+        {/* <mesh castShadow receiveShadow position={[0, 80, -20]} rotation={[Math.PI / 2, 0, 0]}>
+          <boxGeometry args={[120, 80, 1]} />
+          <meshStandardMaterial />
+        </mesh> */}
+        </group>
     );
 };
 

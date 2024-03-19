@@ -5,33 +5,31 @@ import {
     useHelper,
     Stage,
     Environment,
-    PerspectiveCamera,
+    Lightformer,
+    AccumulativeShadows,
+    RandomizedLight
   } from "@react-three/drei";
-import Product from "./Product";
 import Test from "./Test";
 import Background from "./Background";
 import Ground from "./Ground";
+import Table from "./Table";
 import React, { Suspense, useRef } from "react";
 import { DirectionalLightHelper, PointLightHelper, SpotLightHelper } from "three";
-import { Raytracer } from "@react-three/lgl";
-import  PropsModel from "./PropsModel";
+import  { PropsModel } from "./PropsModel";
 import { usePropsCustomization } from "../editor/PropsCustomizer";
 
 
-const Enviroment = () => {
-  // const dirLght = useRef();
-  //     useHelper(dirLght, DirectionalLightHelper,'red');
-  // const lghgh = useRef();
-  //     useHelper(lghgh, PointLightHelper,'red');
+export const Enviroment = () => {
   const { modelsState } = usePropsCustomization();
 
 
     return (
         <>
-        <OrbitControls target={[0, 0.35, 0]}
-        maxPolarAngle={1.45}/>
+        <OrbitControls target={[0, 15, -20]} enableZoom={true} enablePan={true} enableRotate={true} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 3} maxAzimuthAngle={Math.PI / 2} minAzimuthAngle={-Math.PI / 2} enableDamping dampingFactor={0.2} rotateSpeed={0.3} zoomSpeed={0.3} panSpeed={0.3} />
 
-        {/* <directionalLight ref={dirLght}
+        
+        {/* <directionalLight
+        maxDistance={50} minDistance={20}
         intensity={1.5}
         angle={0.6}
         penumbra={0.5}
@@ -39,39 +37,35 @@ const Enviroment = () => {
         castShadow
         shadow-bias={-0.0001}
       />
-      <pointLight ref={lghgh}
+      <pointLight
         color={[0.14, 0.5, 1]}
         intensity={2}
-        angle={0.6}
+        angle={1}
         penumbra={0.5}
         position={[-10, 15, 10]}
         castShadow
         shadow-bias={-0.0001}
       /> */}
-       <Stage environment="apartment" intensity={0.05} castShadow={true}>
-        <Product />
+
+      {/* <Stage contactShadow shadows adjustCamera environment='warehouse' intensity={0.1} environmentIntensity={0.5}> */}
+      <directionalLight position={[15, 10, 20]} castShadow intensity={1.5} shadow-mapSize={2048} shadow-bias={-0.001}>
+      </directionalLight>
+      <directionalLight position={[-8, 20, 20]} castShadow intensity={2} shadow-mapSize={2048} shadow-bias={-0.001}>
+        <orthographicCamera attach="shadow-camera" args={[15.5, -15.5, -15.5, 20.5, 0.5, 80]} />
+      </directionalLight>
+      {/* <Environment preset="apartment" blur={0.5}/> */}
+
         <Test />
         <Background />
         <Ground />
+        <Table />
         {Object.entries(modelsState).map(([modelName, modelState]) => {
           if (modelState.visibility) {
           return <PropsModel key={modelName} {...modelState} />;
         }
         return null;
         })}
-        </Stage>
     </>
   )
 };
 
-export default Enviroment;
-
-{/* <spotLight ref={dirLght} intensity={2} angle={1} penumbra={1} position={[2, 5, 5]} shadow-mapSize-width={64} shadow-mapSize-height={64} castShadow shadow-bias={-0.001} scale={0.001} /> 
-
- <PresentationControls
-    speed={1.5}
-    global
-    polar={[-0.1, Math.PI / 4]}
-    rotation={[Math.PI / 8, Math.PI / 4, 0]}
-> 
- </PresentationControls> */}

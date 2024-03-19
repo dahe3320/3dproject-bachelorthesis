@@ -15,8 +15,8 @@
   position: absolute;
   top: 10px;
   left: 10px;
-  max-width: 300px;
-  height: 70%;
+  max-width: 355px;
+  height: 100%;
   z-index: 1;
   background-color: #353232;
   color: #D9D9D9;
@@ -26,13 +26,30 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+
+
+.nav-tabs .nav-item .nav-link.active {
+  background-color: #30718f !important; /* Blue background */
+  color: #ecf5f9;
+}
+
+.nav-tabs .nav-item .nav-link:not(.active) {
+  background-color: #ecf5f9 !important; /* Yellow background */
+  color: #30718f;
+}
+
+
+.nav-tabs .nav-item .nav-link:hover {
+  background-color: #5898b6 !important; /* Blue background */
+  color: #ecf5f9;
+}
+
 .model-tab-config {
   display: flex;
   flex-direction: row;
   gap: 5px;
   align-items: center;
   flex-wrap: wrap;
-  padding: 16px 0;
 }
 
 .trait {
@@ -56,31 +73,6 @@
 
 .trait.trait-spec .trait-box {
   border: solid 2px #272727;
-}
-
-.interface input,
-.interface select,
-.interface button {
-  margin-bottom: 10px;
-}
-
-.controls-container label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.text-input-container {
-  font-family: 'Quicksand', sans-serif;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-#text-input {
-  width: 60%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
 }
 
 .screenshot-container {
@@ -119,43 +111,32 @@ input[type="file"] {
   background-color: #2980b9;
 }
 
-/* Customize the appearance of the color picker input */
-input[type="color"] {
-  appearance: none;
-  border: none;
-  width: 50px;
-  height: 50px;
-  margin: 30px;
-  cursor: pointer;
-}
-
-.interface input[type="color"]:hover {
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.interface input[type="color"]::-webkit-color-swatch {
-  border: none;
-}
-
-.interface input[type="color"]::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
-
-.carousel-block-1, .carousel-block-2 {
+.carousel-block-1, .carousel-block-2, .carousel-block-3 {
   width: 50%;
   margin: 0 auto;
   display: flex;
   justify-content: center;
 }
 
-.background-container {
-  padding: 15px;
-  border-radius: 5px;
+
+/* Customizing the icons within the controls for better visibility */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #30718f;
+  border-radius: 50%;
+  padding: 30px;
 }
 
-.ground-container {
-  padding: 15px;
-  border-radius: 5px;
+.carousel-indicators button {
+  background-color: #30718f !important;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50%;
+}
+
+/* Customizing the active indicator */
+.carousel-indicators .active {
+  background-color: #0a4058 !important;
 }
 
 .img-block {
