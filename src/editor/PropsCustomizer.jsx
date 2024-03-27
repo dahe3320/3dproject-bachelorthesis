@@ -8,6 +8,7 @@ const checkBoxes = [
     // { label: 'Pennor', name: 'prop5', path: './models/pennor.gltf', x: 0, z: 0},
     { label: 'Kaffe', name: 'prop6', path: './models/kaffe.gltf', x: 0, z: 0},
     { label: 'Gem', name: 'prop7', path: './models/gem.gltf', x: 0, z: 0},
+    { label: 'Bokmärke', name: 'prop8', path: './models/bokmarke.gltf', x: 0, z: 0},
   ];
 
 const PropsContext = createContext();

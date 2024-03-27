@@ -32,8 +32,8 @@ const Ground = () => {
       }, [diffuseMap, displacementMap, normalMap, roughnessMap]); 
 
     return (
-        <mesh position={[0 , 0, -20]} rotation={[-Math.PI / 2, 0, 0]}>
-            <planeGeometry args={[120, 80]} />
+        <mesh position={[0 , 0, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+            <planeGeometry args={[120, 120]} />
             <MeshReflectorMaterial
             attach="material" 
             map={diffuseMap}
@@ -41,13 +41,13 @@ const Ground = () => {
             normalMap={normalMap} 
             roughnessMap={roughnessMap}
             dithering={true}
-            roughness={0.6}
+            roughness={0.7}
             blur={[1000, 400]} 
             mixBlur={30} 
-            mixStrength={4} 
+            mixStrength={5} 
             mixContrast={1}
             resolution={1024} 
-            mirror={0.4} 
+            mirror={0.5} 
             depthScale={0.1} 
             minDepthThreshold={0.9}
             maxDepthThreshold={1} 

@@ -8,6 +8,7 @@ const Background = () => {
     const { backgroundImage } = useEnviromentCustomization();
     const [texture, setTexture] = useState();
     const [loading, setLoading] = useState(true);
+    const skirt = useTexture('./models/textures/laminate_floor/laminate_floor_02_diff_1k.jpg');
 
   useEffect(() => {
     const loader = new TextureLoader();
@@ -53,10 +54,21 @@ const Background = () => {
             <meshStandardMaterial
             attach='material' map={texture} />
         </mesh>
-        {/* <mesh castShadow receiveShadow position={[0, 80, -20]} rotation={[Math.PI / 2, 0, 0]}>
-          <boxGeometry args={[120, 80, 1]} />
-          <meshStandardMaterial />
-        </mesh> */}
+        <mesh castShadow receiveShadow position={[0, 1.5, -59.2]}>
+          <boxGeometry args={[120, 3, 0.5]} />
+          <meshStandardMaterial
+          attach='material' map={skirt} />
+        </mesh>
+        <mesh castShadow receiveShadow position={[-59.2, 1.5, -20]} rotation={[0, Math.PI / 2, 0]}>
+          <boxGeometry args={[80, 3, 0.5]} />
+          <meshStandardMaterial 
+          attach='material' map={skirt} />
+        </mesh>
+        <mesh castShadow receiveShadow position={[59.2, 1.5, -20]} rotation={[0, Math.PI / 2, 0]}>
+          <boxGeometry args={[80, 3, 0.5]} />
+          <meshStandardMaterial 
+          attach='material' map={skirt} />
+        </mesh>
         </group>
     );
 };

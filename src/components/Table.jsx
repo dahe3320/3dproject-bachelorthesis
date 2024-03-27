@@ -56,16 +56,6 @@ export function Table(props) {
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.defaultMaterial.geometry}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.defaultMaterial_1.geometry}
-            />
-          <mesh
-            castShadow
-            receiveShadow
             geometry={nodes.defaultMaterial_2.geometry}>
             <MeshReflectorMaterial
             attach="material"
@@ -73,7 +63,17 @@ export function Table(props) {
             normalMap={normalMap}
             roughnessMap={roughnessMap}
             reflectorOffset={1}
-            mirror={0}
+            dithering={true}
+            roughness={0}
+            mixBlur={30} 
+            mixStrength={8} 
+            mixContrast={1}
+            resolution={1024} 
+            mirror={0} 
+            depthScale={0.1} 
+            minDepthThreshold={0.9}
+            maxDepthThreshold={1} 
+            depthToBlurRatioBias={0.25} 
             />
           </mesh>
         </group>

@@ -1,15 +1,23 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import * as THREE from 'three';
 import { Button, Container, Row, Col, Image, Form } from "react-bootstrap";
 import { useModelCustomization } from "../../editor/ModelCustomizer";
+import Test from "../Test";
+import OpenProduct from "../OpenProduct";
 
 const ModelUI = () => {
+    const { selectedModel, setSelectedModel } = useModelCustomization();
     const { setCoverTexture, setPositionX, setPositionZ, setPositionY, setRotation, spiralColors, spiralColor, setSpiralColor, bandColors, bandColor, setBandColor } = useModelCustomization();
     const fileInputRef = useRef();
 
 
     const handleClick = () => {
         fileInputRef.current.click();
+      };
+
+    const handleModelChange = (model) => {
+      console.log('Model changed to:', model);
+        setSelectedModel(model);
       };
 
     const handleFileUpload = async (e) => {
@@ -36,6 +44,7 @@ const ModelUI = () => {
 
       const handleRotationChange = useCallback((newRotation) => {
         setRotation(newRotation);
+        console.log('Rendered');
         let yState = 15;
 
         if (newRotation.y === -Math.PI / 2 && newRotation.z === -Math.PI / 2) {
@@ -78,6 +87,10 @@ const ModelUI = () => {
 
       return (
         <div className="model-ui">
+        <div>
+          <Button onClick={() => handleModelChange('Closed')}>Model A</Button>
+          <Button onClick={() => handleModelChange('Open')}>Model B</Button>
+        </div>
         <div className='pick-model-container'>
             <Container>
               <Row>
