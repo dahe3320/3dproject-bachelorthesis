@@ -23,20 +23,20 @@ const Interface = () => {
 
   return (
     <div className="interface">
-      <Tabs defaultActiveKey="Kalender" id="configurator-tab" className="mb-4" style={{ fontSize: '16px', fontWeight: '500'}}>
+      <Tabs defaultActiveKey="Kalender" id="configurator-tab">
         <Tab eventKey="Kalender" title="KALENDER">
           <ModelUI />
         </Tab>
         <Tab eventKey="Bakgrund" title="BAKGRUND">
           <EnviromentUI />
         </Tab>
-        <Tab eventKey="Props" title="PROPS">
+        <Tab eventKey="Props" title="TILLBEHÖR">
           <PropsUI />
         </Tab>
       </Tabs>
       <div className='screenshot-container'>
         <Button className="config-button" onClick={handleScreenshot}>
-          Take Screenshot!
+          Generera Produktbild
         </Button>
       </div>
     </div>

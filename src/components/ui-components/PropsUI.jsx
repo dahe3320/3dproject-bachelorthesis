@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { usePropsCustomization } from '../../editor/PropsCustomizer';
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { PropsModel } from '../PropsModel';
 
 const PropsUI = () => {
@@ -9,6 +9,10 @@ const PropsUI = () => {
   const [sliderState, setSliderState] = useState({});
   const propStatesRef = useRef({});
   const modelsStateRef = useRef({});
+  const maxX = 15;
+  const minX = -15;
+  const maxZ = 12;
+  const minZ = -12;
 
   const handleCheckboxChange = useCallback((checkbox) => {
     console.log(`Model Path: ${checkbox.path}`);
@@ -25,119 +29,90 @@ const PropsUI = () => {
 
   useEffect(() => {
     const newModelsState = { ...modelsStateRef.current };
-    const newPropStates = { ...propStatesRef.current };
 
     Object.entries(checkedState).forEach(([name, isChecked]) => {
-      newModelsState[name] = {
-        ...newModelsState[name],
-        visibility: isChecked,
-        x: propStatesRef.current[name]?.x || 0,
-        z: propStatesRef.current[name]?.z || 0,
-        path: checkBoxes.find(checkbox => checkbox.name === name)?.path,
-      };
-  
-      if (!isChecked) {
-        newPropStates[name] = {
-          x: 0,
-          z: 0,
-        };
-      }
+        const initialProps = checkBoxes.find(checkbox => checkbox.name === name);
+        if (isChecked && !newModelsState[name]) {
+            // Initialize only if the prop doesn't already exist in the state
+            newModelsState[name] = {
+                visibility: true,
+                x: initialProps?.x || 0, // Use existing value or 0
+                z: initialProps?.z || 0, // Use existing value or 0
+                path: initialProps?.path,
+            };
+        } else if (!isChecked && newModelsState[name]) {
+            newModelsState[name].visibility = false;
+        }
     });
 
     modelsStateRef.current = newModelsState;
-    propStatesRef.current = newPropStates;
-    setModelsState(newModelsState); // update the global state
-  }, [checkedState, checkBoxes, setModelsState]);
-  
-  
-    const handleXChange = (e, prop) => {
-      const newXValue = Number(e.target.value);
-      propStatesRef.current = {
-        ...propStatesRef.current,
-        [prop.name]: { ...propStatesRef.current[prop.name], x: newXValue },
-      };
+    setModelsState(newModelsState); // Update the global state
+}, [checkedState, checkBoxes, setModelsState]);
 
-      setSliderState(propStatesRef.current);
-  
-      setModelsState((prevModelsState) => ({
-        ...prevModelsState,
-        [prop.name]: {
-          ...prevModelsState[prop.name],
-          x: newXValue,
-        },
-      }));
-    };
-  
-    const handleZChange = (e, prop) => {
-      const newZValue = Number(e.target.value);
-      propStatesRef.current = {
-        ...propStatesRef.current,
-        [prop.name]: { ...propStatesRef.current[prop.name], z: newZValue },
-      };
+const adjustPosition = (propName, axis, delta) => {
+    // Ensure prop entry exists in propStatesRef for uninitiated props
+    if (!propStatesRef.current[propName]) {
+        propStatesRef.current[propName] = { x: 0, z: 0 }; // Initialize with default positions
+    }
+    
+    let newValue = (propStatesRef.current[propName][axis] || 0) + delta;
 
-      setSliderState(propStatesRef.current);
-  
-      setModelsState((prevModelsState) => ({
-        ...prevModelsState,
-        [prop.name]: {
-          ...prevModelsState[prop.name],
-          z: newZValue,
-        },
-      }));
+    // Apply boundary checks
+    newValue = Math.max(Math.min(newValue, axis === 'x' ? maxX : maxZ), axis === 'x' ? minX : minZ);
+
+    // Update propStatesRef and modelsStateRef with the new value
+    propStatesRef.current[propName][axis] = newValue;
+    modelsStateRef.current[propName] = {
+        ...modelsStateRef.current[propName],
+        [axis]: newValue,
     };
 
-    return (
-      <Form>
-        <div key={`inline-checkbox`} className="mb-3">
-          {checkBoxes.map((checkbox, index) => (
-            <React.Fragment key={index}>
-              <Form.Check
-                label={checkbox.label}
-                name={checkbox.name}
-                checked={checkedState[checkbox.name] || false}
-                onChange={() => handleCheckboxChange(checkbox)}
-              />
-              {checkedState[checkbox.name] && (
-                <Form.Group
-                  controlId={`inline-checkbox--${index + 1}`}
-                  className="mb-3 align-items-center"
-                >
-                  <Form.Label className="mx-2">X:</Form.Label>
-                  <Form.Range
-                    value={sliderState[checkbox.name]?.x || 0}
-                    onChange={(e) => handleXChange(e, checkbox)}
-                    size="sm"
-                    min={-20}
-                    max={20}
-                    step={1}
-                    style={{ width: "80%" }}
-                  />
-                  <Form.Label className="mx-2">Z:</Form.Label>
-                  <Form.Range
-                    value={sliderState[checkbox.name]?.z || 0}
-                    onChange={(e) => handleZChange(e, checkbox)}
-                    size="sm"
-                    min={-20}
-                    max={20}
-                    step={1}
-                    style={{ width: "80%" }}
-                  />
-                </Form.Group>
-              )}
-              {checkedState[checkbox.name] && (
-                <PropsModel 
-                key={checkbox.name} 
-                x={propStatesRef[checkbox.name]?.x} 
-                z={propStatesRef[checkbox.name]?.z}
-                visibility={true}
-                path={checkbox.path}
-                />         
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-      </Form>
-    );
-  };
-  
-  export default PropsUI;
+    // Update global state to reflect changes
+    setModelsState({ ...modelsStateRef.current });
+};
+
+  return (
+    <Form className='my-5 py-4'>
+      <div key={`inline-checkbox`} className="mb-3">
+        {checkBoxes.map((checkbox, index) => (
+          <React.Fragment key={index}>
+            <Form.Check
+              label={checkbox.label}
+              name={checkbox.name}
+              checked={checkedState[checkbox.name] || false}
+              onChange={() => handleCheckboxChange(checkbox)}
+              style={{
+                fontWeight: checkedState[checkbox.name] ? 'bold' : 'normal',
+                color: checkedState[checkbox.name] ? '#007bff' : '#d9d9d9', // Example colors
+              }}
+            />
+            {checkedState[checkbox.name] && (
+              <Form.Group
+                controlId={`inline-checkbox--${index + 1}`}
+                className="arrow-keys-container"
+              >
+                <div></div>
+                <Button className="arrow-button" onClick={() => adjustPosition(checkbox.name, 'z', -1)}>-</Button>
+                <div></div>
+                <Button className="arrow-button" onClick={() => adjustPosition(checkbox.name, 'x', -1)}>-</Button>
+                <Button className="arrow-button" onClick={() => adjustPosition(checkbox.name, 'z', 1)}>+</Button>
+                <Button className="arrow-button" onClick={() => adjustPosition(checkbox.name, 'x', 1)}>+</Button>
+              </Form.Group>
+            )}
+            {checkedState[checkbox.name] && (
+              <PropsModel 
+              key={checkbox.name} 
+              x={propStatesRef.current[checkbox.name]?.x} 
+              z={propStatesRef.current[checkbox.name]?.z}
+              visibility={true}
+              path={checkbox.path}
+              />         
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+    </Form>
+  );
+};
+
+export default PropsUI;

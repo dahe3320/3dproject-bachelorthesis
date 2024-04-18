@@ -43,7 +43,6 @@ export function Table(props) {
   if (loading) {
     return (
       <Html center>
-        console.log("Loading table textures...");
      <Spinner animation="border" />;
       </Html>
     )
@@ -52,7 +51,7 @@ export function Table(props) {
   return (
     <group {...props} dispose={null} scale={20} position-y={5}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
-        <group rotation={[Math.PI / 2, 0, 0]} scale-y={0.5} scale-z={1.2}>
+        <group rotation={[Math.PI / 2, 0, 0]} scale={[1.5, 0.5, 1.5]}>
           <mesh
             castShadow
             receiveShadow
@@ -72,7 +71,7 @@ export function Table(props) {
             mirror={0} 
             depthScale={0.1} 
             minDepthThreshold={0.9}
-            maxDepthThreshold={1} 
+            maxDepthThreshold={1.5} 
             depthToBlurRatioBias={0.25} 
             />
           </mesh>
@@ -84,4 +83,4 @@ export function Table(props) {
 
 export default Table;
 
-useGLTF.preload("/simple_office_table.glb");
+useGLTF.preload("/desk.glb");

@@ -7,8 +7,8 @@ import Interface from './components/Interface'
 import { ModelProvider } from './editor/ModelCustomizer'
 import { EnviromentProvider } from './editor/EnviromentCustomizer'
 import { PropsProvider } from './editor/PropsCustomizer'
-import { Raytracer } from "@react-three/lgl";
 import { Sky } from '@react-three/drei';
+import NavigationGuide from './components/NavigationGuide'
 
 
 function App() {
@@ -23,6 +23,9 @@ function App() {
           <Enviroment />
         </Canvas>
         <Interface />
+        <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: '1000' }}>
+          <NavigationGuide />
+        </div>
         </Suspense>
       </div>
     </PropsProvider>

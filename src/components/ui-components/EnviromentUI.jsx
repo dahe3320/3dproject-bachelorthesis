@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Carousel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { useEnviromentCustomization } from '../../editor/EnviromentCustomizer';
 
 const EnviromentUI = () => {
@@ -22,55 +22,43 @@ const EnviromentUI = () => {
         }
       }
 
-      const handleTable = (tableIndex) => {
-          setTableIndex(tableIndex);
-          console.log('tableIndex', tableIndex);
-          setTableTxt(tableTxts[tableIndex]);
-        
+      const handleTable = (txtIndex) => {
+          setTableIndex(txtIndex);
+          console.log('tableIndex', txtIndex);
+          setTableTxt(tableTxts[txtIndex]);
       }
 
       return (
-        <div className='enviroment-ui'>
+        <div className='enviroment-ui my-5 py-4'>
          <h4>Background</h4>
-          <div className='carousel-block-1'>
-            <Carousel interval={null} slide={false} fade={false} className='background-container' activeIndex={backgroundIndex} onSelect={handleBackground}>
-              {backgroundImages.map((image, idx) => (
-                <Carousel.Item key={idx}>
-                  <img
-                    className="img-block"
-                    src={image.src}
-                    alt={image.alt}
-                  />
-                </Carousel.Item>
-              ))}
-            </Carousel>
-          </div>
-          <h4>Ground</h4>
-          <div className='carousel-block-2'>
-            <Carousel interval={null} slide={false} fade={false} className='ground-container' activeIndex={groundIndex} onSelect={handleGround}>
-              {groundTxts.map((txt, ix) => (
-                <Carousel.Item key={ix}>
-                  <img
-                    className="img-block"
-                    src={txt.placeholder}
-                  />
-                </Carousel.Item>
-              ))}
-            </Carousel>
-          </div>
-          <h4>Table</h4>
-          <div className='carousel-block-3'>
-            <Carousel interval={null} slide={false} fade={false} className='table-container' activeIndex={tableIndex} onSelect={handleTable}>
-              {tableTxts.map((texture, id) => (
-                <Carousel.Item key={id}>
-                  <img
-                    className="img-block"
-                    src={texture.placeholder}
-                  />
-                </Carousel.Item>
-              ))}
-            </Carousel>
-            </div>
+      <div className='textures-container background-container d-flex column mb-4'>
+        {backgroundImages.map((image, idx) => (
+          <Card key={idx} onClick={() => handleBackground(idx)} style={{ width: '5rem' }} className={idx === backgroundIndex ? 'active-texture' : ''}>
+            <Card.Img variant="top" src={image.src} alt={image.alt} />
+            <Card.Title>{image.name}</Card.Title>
+          </Card>
+        ))}
+      </div>
+
+      <h4>Ground</h4>
+      <div className='textures-container ground-container d-flex column mb-4'>
+        {groundTxts.map((txt, ix) => (
+          <Card key={ix} onClick={() => handleGround(ix)} style={{ width: '5rem' }} className={ix === groundIndex ? 'active-texture' : ''}>
+            <Card.Img variant="top" src={txt.placeholder} alt={`Ground ${ix}`} />
+            <Card.Title>{txt.name}</Card.Title>
+          </Card>
+        ))}
+      </div>
+
+      <h4>Table</h4>
+      <div className='textures-container table-container d-flex column'>
+        {tableTxts.map((texture, id) => (
+          <Card key={id} onClick={() => handleTable(id)} style={{ width: '5rem' }} className={id === tableIndex ? 'active-texture' : ''}>
+            <Card.Img variant="top" src={texture.placeholder} alt={`Table ${id}`} />
+            <Card.Title>{texture.name}</Card.Title>
+          </Card>
+        ))}
+      </div>
         </div>
       )
     };

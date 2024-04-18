@@ -15,8 +15,8 @@
   position: absolute;
   top: 10px;
   left: 10px;
-  max-width: 355px;
-  height: 100%;
+  width: 13.8%;
+  height: 85%;
   z-index: 1;
   background-color: #353232;
   color: #D9D9D9;
@@ -26,22 +26,75 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-
-
-.nav-tabs .nav-item .nav-link.active {
-  background-color: #30718f !important; /* Blue background */
-  color: #ecf5f9;
+.overlay-trigger {
+  background: #404040 !important;
+  border: 2px solid #ecf5f9 !important;
+  padding: 20px !important;
 }
 
-.nav-tabs .nav-item .nav-link:not(.active) {
-  background-color: #ecf5f9 !important; /* Yellow background */
-  color: #30718f;
+.overlay-trigger:hover {
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 1) !important;
+}
+
+.popover {
+  font-size: 1.2rem !important;
+  font-family: 'Righteous' !important;
+  --bs-popover-bg: #353232 !important;
+  --bs-popover-body-color: #D9D9D9 !important;
+  --bs-popover-header-bg: #353232 !important;
+  --bs-popover-header-color: #D9D9D9 !important;
+  --bs-popover-border-color: #D9D9D9 !important;
 }
 
 
-.nav-tabs .nav-item .nav-link:hover {
-  background-color: #5898b6 !important; /* Blue background */
-  color: #ecf5f9;
+.nav-tabs {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  display: flex !important;
+  width: 100% !important;
+  justify-content: space-around !important;
+  border-bottom: 1px solid #ddd !important;
+  --bs-nav-tabs-border-width: 0 !important;
+}
+
+.nav-tabs .nav-item {
+  flex-grow: 1 !important;
+  text-align: center !important; /* Ensure text is centered */
+}
+
+.nav-tabs .nav-link {
+  width: 100% !important; /* Ensure link fills the nav item */
+  padding: 20px 10px 20px 10px !important;
+  border-radius: 0 !important;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #353232 !important;
+  color: #ecf5f9 !important;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 1) !important;
+}
+
+.nav-tabs .nav-link:not(.active) {
+  background-color: #353232 !important;
+  color: #ecf5f99f !important;
+}
+
+.nav-tabs .nav-link:hover {
+  background-color: #353232 !important;
+  color: #ecf5f9 !important;
+}
+
+.model-ui button {
+  background: #ecf5f9 !important;
+  color: #30718f !important;
+  border: 2px solid #ecf5f9 !important;
+}
+
+.model-ui button:hover {
+  background: #30718f !important;
+  color: #ecf5f9 !important;
+  border: 2px solid transparent !important;
 }
 
 .model-tab-config {
@@ -72,7 +125,7 @@
 }
 
 .trait.trait-spec .trait-box {
-  border: solid 2px #272727;
+  border: solid 2px #aeaeae;
 }
 
 .screenshot-container {
@@ -82,16 +135,12 @@
 }
 
 .config-button {
-  background-color: #3498db;
-  color: #fff;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
+  background: #404040 !important;
+  border: 2px solid #ecf5f9 !important;
 }
 
 .config-button:hover {
-  background-color: #2980b9;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 1) !important;
 }
 
 /* Customize the appearance of the file upload input */
@@ -99,50 +148,49 @@ input[type="file"] {
   display: none;
 }
 
-.interface label[for="file-upload"] {
-  background-color: #3498db;
-  color: #fff;
-  padding: 10px;
+
+.textures-container .card {
+  margin: 5px;
   cursor: pointer;
-  border-radius: 5px;
+  font-family: 'Quicksand', sans-serif; 
 }
 
-.interface label[for="file-upload"]:hover {
-  background-color: #2980b9;
+.textures-container .card:not(.active-texture) {
+  opacity: 0.3;
+  transition: opacity 0.5s;
 }
 
-.carousel-block-1, .carousel-block-2, .carousel-block-3 {
-  width: 50%;
-  margin: 0 auto;
-  display: flex;
+.textures-container .card:hover:not(.active-texture) {
+  opacity: 1;
+}
+
+.active-texture {
+  opacity: 1;
+}
+
+.textures-container .card img {
+  height: 5rem; /* Adjust to control image height */
+  object-fit: cover; /* Adjust how images fit within the card */
+}
+
+.textures-container .card .card-title {
+  font-size: 1rem; /* Adjust to control title size */
+  text-align: center;
+}
+
+.arrow-keys-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
   justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-
-/* Customizing the icons within the controls for better visibility */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background-color: #30718f;
-  border-radius: 50%;
-  padding: 30px;
+.arrow-button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
 }
-
-.carousel-indicators button {
-  background-color: #30718f !important;
-  width: 20px !important;
-  height: 20px !important;
-  border-radius: 50%;
-}
-
-/* Customizing the active indicator */
-.carousel-indicators .active {
-  background-color: #0a4058 !important;
-}
-
-.img-block {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-}
-
-
