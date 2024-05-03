@@ -12,8 +12,8 @@ const spiralColors = [
   const bandColors = [
     { color: '#f5f5f5', name: 'white', displayColor: '#f5f5f5' },
     { color: '#000000', name: 'black', displayColor: '#000000'},
-    { color: '#c0c0c0', name: 'silver', displayColor: '#c0c0c0', texture: './src/assets/silverTexture.png' },
-    { color: '#ce9726', name: 'gold', displayColor: '#ce9726', texture: './src/assets/goldTexture.png'},
+    { color: '#c0c0c0', name: 'silver', displayColor: '#c0c0c0', texture: '/assets/silverTexture.png' },
+    { color: '#ce9726', name: 'gold', displayColor: '#ce9726', texture: '/assets/goldTexture.png'},
     { color: '#d51e39', name: 'red', displayColor: '#d51e39' },
     { color: '#ffd7e6', name: 'lightpink', displayColor: '#ffd7e6' },
     { color: '#ee2d75', name: 'cerise', displayColor: '#ee2d75' },

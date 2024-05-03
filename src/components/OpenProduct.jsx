@@ -7,8 +7,8 @@ export const OpenProduct = React.memo((props) => {
     const { leftPageTxt, rightPageTxt, positionX, positionZ, positionY, rotation, spiralColor, frameColor } = useModelCustomization();
     const { nodes, materials } = useGLTF('./models/product_open.glb');
 
-    const leftDefaultPage = useTexture('./src/assets/leftPage.png');
-    const rightDefaultPage = useTexture('./src/assets/rightPage.png');
+    const leftDefaultPage = useTexture('/assets/leftPage.png');
+    const rightDefaultPage = useTexture('/assets/rightPage.png');
 
     const currentLeftPageTxt = leftPageTxt || leftDefaultPage;
     const currentRightPageTxt = rightPageTxt || rightDefaultPage;

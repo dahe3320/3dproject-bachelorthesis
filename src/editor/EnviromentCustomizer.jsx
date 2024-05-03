@@ -2,15 +2,15 @@ import { createContext, useContext, useState } from 'react';
 
 const backgroundImages = [
     {
-      src: './src/assets/painted_plaster_wall_diff_1k.jpg',
+      src: '/assets/painted_plaster_wall_diff_1k.jpg',
       name: 'Painted Plaster'
     },
     {
-      src: './src/assets/beige_concrete_wall.jpg',
+      src: '/assets/beige_concrete_wall.jpg',
       name: 'Beige Concrete'
     },
     {
-      src: './src/assets/white-brick-wall.jpg',
+      src: '/assets/white-brick-wall.jpg',
       name: 'White Brick'
     }
   ];

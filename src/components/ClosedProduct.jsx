@@ -8,7 +8,7 @@ export const ClosedProduct = React.memo((props) => {
     const { coverTexture, positionX, positionZ, positionY, rotation, spiralColor, bandColor, bandTexture } = useModelCustomization();
     const { nodes, materials } = useGLTF('./models/product_closed.glb');
 
-    const defaultTexture = useTexture('./src/assets/Illustration-three-lemons.jpg');
+    const defaultTexture = useTexture('/assets/Illustration-three-lemons.jpg');
 
     const currentTexture = coverTexture || defaultTexture;
 
