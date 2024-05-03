@@ -1,8 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import * as THREE from 'three';
-import { Button, Container, Row, Col, Image, Form } from "react-bootstrap";
+import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import { useModelCustomization } from "../../editor/ModelCustomizer";
-import OpenProduct from "../OpenProduct";
 
 const ModelUI = () => {
     const { selectedModel, setSelectedModel, setCoverTexture, setLeftPageTxt, setRightPageTxt, setPositionX, setPositionZ, setPositionY, setRotation, spiralColors, spiralColor, setSpiralColor, bandColors, bandColor, setBandColor, setBandTexture, frameColors, frameColor, setFrameColor } = useModelCustomization();
@@ -78,7 +77,6 @@ const ModelUI = () => {
 
       const handleRotationChange = useCallback((newRotation) => {
         setRotation(newRotation);
-        console.log('Rendered');
         let yState = 15;
 
         if (newRotation.y === -Math.PI / 2 && newRotation.z === -Math.PI / 2) {
@@ -132,9 +130,9 @@ const ModelUI = () => {
           <Button className="mx-1 my-4 w-100" onClick={() => handleModelChange('Open')}>Öppen</Button>
         </div>
           <Container className='my-4 d-flex column'>
-            <Button className="mx-1 w-100" onClick={() => handleRotationChange({ x: 0, y: -Math.PI / 2, z: -Math.PI / 2 })}>Standing</Button>
-            <Button className="mx-1 w-100" onClick={() => handleRotationChange({ x: 0, y: 80 * (-Math.PI / 180), z: 0 })}>Laying</Button>
-            <Button className="mx-1 w-100" onClick={() => handleRotationChange({ x: Math.PI / 6, y: -Math.PI / 2, z: 0 })}>Tilting</Button>
+            <Button className="mx-1 w-100" onClick={() => handleRotationChange({ x: 0, y: -Math.PI / 2, z: -Math.PI / 2 })}>Står</Button>
+            <Button className="mx-1 w-100" onClick={() => handleRotationChange({ x: 0, y: 80 * (-Math.PI / 180), z: 0 })}>Liggande</Button>
+            <Button className="mx-1 w-100" onClick={() => handleRotationChange({ x: Math.PI / 6, y: -Math.PI / 2, z: 0 })}>Lutning</Button>
           </Container>
           <div className='model-tab-title my-4'>Position</div>
           <Form.Group className="arrow-keys-container">

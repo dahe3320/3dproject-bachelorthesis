@@ -13,7 +13,7 @@ import Background from "./Background";
 import Ground from "./Ground";
 import Table from "./Table";
 import React, { Suspense, useRef, useState } from "react";
-import  { PropsModel } from "./PropsModel";
+import { PropsModel } from "./PropsModel";
 import { useModelCustomization } from "../editor/ModelCustomizer";
 import { usePropsCustomization } from "../editor/PropsCustomizer";
 import ClosedProduct from "./ClosedProduct";

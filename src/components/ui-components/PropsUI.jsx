@@ -15,8 +15,6 @@ const PropsUI = () => {
   const minZ = -12;
 
   const handleCheckboxChange = useCallback((checkbox) => {
-    console.log(`Model Path: ${checkbox.path}`);
-    
     setCheckedState((prevCheckedState) => {
       const newCheckedState = {
         ...prevCheckedState,
